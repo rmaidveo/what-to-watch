@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FilmCard from '../film-card/film-card';
 
-const MainScreen = ({filmsList, poster}) => {
+const MainPage = ({filmsList, poster}) => {
 
   return (
-    <React.Fragment>
+    <>
       <section className="movie-card">
         <div className="movie-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -121,11 +121,11 @@ const MainScreen = ({filmsList, poster}) => {
           </div>
         </footer>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
-MainScreen.propTypes = {
+MainPage.propTypes = {
   filmsList: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -134,10 +134,10 @@ MainScreen.propTypes = {
       })
   ).isRequired,
   poster: PropTypes.shape({
-    title: PropTypes.number.isRequired,
-    genre: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired
   }).isRequired
 };
 
-export default MainScreen;
+export default MainPage;
