@@ -1,28 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {filmPreviewPropTypes} from '../../prop-types';
+import {Link} from 'react-router-dom';
 
-const FilmCard = ({film}) => {
-
+const FilmCard = (props) => {
+  const {id, name, imageSrc} = props;
   return (
     <>
       <article className="small-movie-card catalog__movies-card">
         <div className="small-movie-card__image">
-          <img src={film.imageSrc} alt= {film.title} width="280" height="175" />
+          <img src={imageSrc} alt={name} width="280" height="175" />
         </div>
         <h3 className="small-movie-card__title">
-          <a className="small-movie-card__link" href="movie-page.html">{film.title}</a>
+          <Link className="small-movie-card__link" to={`/films/${id}`}>{name}</Link>
         </h3>
       </article>
     </>
   );
 };
 
-FilmCard.propTypes = {
-  film:
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.osRequired,
-        imageSrc: PropTypes.string.isRequired
-      })
-};
+FilmCard.propTypes = filmPreviewPropTypes;
 export default FilmCard;

@@ -1,26 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import FilmCard from '../film-card/film-card';
+import FilmsList from '../films-list';
+import Logo from '../logo/logo.jsx';
+import {Link} from 'react-router-dom';
+import {appPropTypes} from '../../prop-types';
+import {LOGO_FOOTER} from '../../consts';
 
-const MainPage = ({filmsList, poster}) => {
+const MainPage = (props) => {
+  const {films, promo, reviews} = props;
 
   return (
     <>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promo.backgroundImage} alt={promo.name}/>
         </div>
-
         <h1 className="visually-hidden">WTW</h1>
-
         <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo></Logo>
 
           <div className="user-block">
             <div className="user-block__avatar">
@@ -32,23 +28,23 @@ const MainPage = ({filmsList, poster}) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promo.imageSrc} alt={promo.name + `poster`} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{poster.title}</h2>
+              <h2 className="movie-card__title">{promo.name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{poster.genre}</span>
-                <span className="movie-card__year">{poster.year}</span>
+                <span className="movie-card__genre">{promo.genre}</span>
+                <span className="movie-card__year">{promo.released}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <Link to={`/player/${promo.id}`} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"> </use>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
                 <button className="btn btn--list movie-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -64,7 +60,6 @@ const MainPage = ({filmsList, poster}) => {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
               <a href="#" className="catalog__genres-link">All genres</a>
@@ -97,25 +92,14 @@ const MainPage = ({filmsList, poster}) => {
               <a href="#" className="catalog__genres-link">Thrillers</a>
             </li>
           </ul>
-
-          <div className="catalog__movies-list">
-            { filmsList.map((film) => <FilmCard film={film} key={film.id} />) }
-          </div>
-
+          <FilmsList films={films} reviews={reviews}/>
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
+          <Logo className={LOGO_FOOTER}></Logo>
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
           </div>
@@ -125,19 +109,5 @@ const MainPage = ({filmsList, poster}) => {
   );
 };
 
-MainPage.propTypes = {
-  filmsList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.osRequired,
-        imageSrc: PropTypes.string.isRequired
-      })
-  ).isRequired,
-  poster: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired
-  }).isRequired
-};
-
+MainPage.propTypes = appPropTypes;
 export default MainPage;
