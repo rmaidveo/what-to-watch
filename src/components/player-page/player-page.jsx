@@ -1,19 +1,24 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
+import {dataPropTypes} from '../../prop-types';
 
-const PlayerPage = () => {
-
+const PlayerPage = (props) => {
+  const {films} = props;
+  const {id: filmId} = props.match.params;
+  const film = films.find((item) => item.id === parseInt(filmId, 10));
+  const history = useHistory();
   return (
     <>
       <div className="player">
-        <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
-        <button type="button" className="player__exit">Exit</button>
+        <video src="#" className="player__video" poster={film.imageSrc}></video>
+        <button onClick={() => history.goBack()} type="button" className="player__exit">Exit</button>
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
               <progress className="player__progress" value="30" max="100"></progress>
               <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">1:30:29</div>
+            <div className="player__time-value">{film.runTime + ` m`}</div>
           </div>
 
           <div className="player__controls-row">
@@ -36,5 +41,5 @@ const PlayerPage = () => {
     </>
   );
 };
-
+PlayerPage.propTypes = dataPropTypes;
 export default PlayerPage;
