@@ -3,7 +3,7 @@ import FilmsList from '../films-list';
 import Logo from '../logo/logo.jsx';
 import {Link} from 'react-router-dom';
 import {appPropTypes} from '../../prop-types';
-import {LOGO_FOOTER} from '../../consts';
+import {LOGO_FOOTER} from '../logo/const';
 
 const MainPage = (props) => {
   const {films, promo, reviews} = props;

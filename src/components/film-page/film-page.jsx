@@ -4,7 +4,8 @@ import {useHistory} from 'react-router-dom';
 import Logo from '../logo/logo';
 import {dataPropTypes} from '../../prop-types';
 import FilmsList from '../films-list';
-import {StarList, LOGO_FOOTER} from '../../consts.js';
+import {StarList} from '../../consts.js';
+import {LOGO_FOOTER} from '../logo/const';
 
 const FilmPage = (props) => {
   const {films} = props;
