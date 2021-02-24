@@ -2,7 +2,7 @@ import React from 'react';
 import FilmsList from '../films-list';
 import Logo from '../logo/logo.jsx';
 import {dataPropTypes} from '../../prop-types';
-import {LOGO_FOOTER} from '../../consts';
+import {LOGO_FOOTER} from '../logo/const';
 
 const MyListPage = (props) => {
   const {films} = props;

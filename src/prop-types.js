@@ -46,6 +46,11 @@ const reviewPropTypes = {
   comment: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired
 };
+const videoPlayerPropTypes = {
+  isPlaying: PropTypes.bool.isRequired,
+  preview: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired
+};
 
 export {
   appPropTypes,
@@ -53,4 +58,5 @@ export {
   filmPropTypes,
   filmPreviewPropTypes,
   reviewPropTypes,
+  videoPlayerPropTypes
 };

@@ -20,14 +20,14 @@ const FormReview = (props) => {
     <form action="#" className="add-review__form" onSubmit={handleReviewSubmit}>
       <div className="rating">
         <div className="rating__stars">
-          {new Array(RATING_STARS).fill().map((rating, index) => (
-            <React.Fragment key={`rating-${index}`}>
-              <input className="rating__input" id={`star-${rating}`} type="radio" name="rating" value={rating}
-                checked={userFormRating === index + 1}
+          {new Array(RATING_STARS).fill().map((_, rating) => (
+            <React.Fragment key={`rating-${rating}`}>
+              <input className="rating__input" id={`star-${rating + 1}`} type="radio" name="rating" value={rating + 1}
+                checked={userFormRating === rating + 1}
                 onChange={() => {
-                  setUserFormRating(index + 1);
+                  setUserFormRating(rating + 1);
                 }}/>
-              <label className="rating__label" htmlFor={`star-${rating}`}>Rating {rating}</label>
+              <label className="rating__label" htmlFor={`star-${rating + 1 }`}>Rating {rating + 1}</label>
             </React.Fragment>
           ))}
         </div>

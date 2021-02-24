@@ -10,8 +10,8 @@ const FilmsList = (props) => {
   };
   return (
     <div className="catalog__movies-list">
-      {films.map(({id, name, imageSrc}) =>
-        <FilmCard key={id} id={id} name={name} imageSrc={imageSrc} activeFilm={activeFilm} onMouseEnter={()=>onMouseEnter(id)} />
+      {films.map((film) =>
+        <FilmCard key={film.id} film={film} activeFilm={activeFilm} onMouseEnter={()=>onMouseEnter(film.id)} />
       )}
     </div>
   );
