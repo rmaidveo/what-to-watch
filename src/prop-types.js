@@ -16,7 +16,7 @@ const filmPropTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   imageSrc: PropTypes.string.isRequired,
-  previewImage: PropTypes.string.isRequired,
+  previewImage: PropTypes.string,
   backgroundImage: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
   videoLink: PropTypes.string.isRequired,
