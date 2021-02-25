@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import Logo from '../logo/logo';
-import {dataPropTypes} from '../../prop-types';
+import {filmPropTypes, reviewPropTypes} from '../../prop-types';
 import FilmsList from '../films-list';
-import {StarList} from '../../consts.js';
 import {LOGO_FOOTER} from '../logo/const';
+import Tabs from '../tabs/tabs';
 
 const FilmPage = (props) => {
-  const {films} = props;
+  const {films, reviews} = props;
   const {id: filmId} = props.match.params;
   const film = films.find((item) => item.id === parseInt(filmId, 10));
   const history = useHistory();
+  const sortedFilms = films.filter((sortFilm) => (sortFilm.genre === film.genre && sortFilm.id !== film.id)).slice(0, 4);
+
   return (
     <>
       <section className="movie-card movie-card--full">
@@ -63,37 +65,7 @@ const FilmPage = (props) => {
             <div className="movie-card__poster movie-card__poster--big">
               <img src={film.imageSrc} alt={film.name} width="218" height="327" />
             </div>
-
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="movie-rating">
-                <div className="movie-rating__score">{film.rating}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">Very good</span>
-                  <span className="movie-rating__count">{film.scoresCount + ` ratings`}</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                <p>{film.description}</p>
-                <p>Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-                <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
-                <p className="movie-card__starring"><strong>Starring: {film.starring.slice(StarList.MIN, StarList.MAX).join(`, `)} and other</strong></p>
-              </div>
-            </div>
+            <Tabs film={film} reviews={reviews}> </Tabs>
           </div>
         </div>
       </section>
@@ -101,7 +73,7 @@ const FilmPage = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={films}/>
+          <FilmsList films={sortedFilms}/>
         </section>
         <footer className="page-footer">
           <Logo className={LOGO_FOOTER}></Logo>
@@ -115,7 +87,12 @@ const FilmPage = (props) => {
 };
 
 FilmPage.propTypes = {
-  films: dataPropTypes,
+  films: PropTypes.arrayOf(
+      PropTypes.shape(filmPropTypes).isRequired
+  ),
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape(reviewPropTypes).isRequired,
+  ),
   match: PropTypes.object
 };
 export default FilmPage;
