@@ -8,27 +8,28 @@ import PlayerPage from '../player-page/player-page';
 import SignInPage from '../sign-in-page/sign-in-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {appPropTypes} from '../../prop-types.js';
+import {RouteType} from '../../consts';
 
 const App = ({films, promo, reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={RouteType.INDEX}>
           <MainPage films={films} promo={promo} reviews={reviews} />
         </Route>
-        <Route exact path="/login">
+        <Route exact path={RouteType.LOGIN}>
           <SignInPage/>
         </Route>
-        <Route exact path="/mylist">
+        <Route exact path={RouteType.USER_LIST}>
           <MyListPage films={films}/>
         </Route>
-        <Route exact path="/player/:id?" render={(routerProps) =>
+        <Route exact path={RouteType.PLAYER} render={(routerProps) =>
           <PlayerPage films={films} {...routerProps}/>}/>
-        <Route exact path="/films/:id?/review" render={(routerProps) =>
+        <Route exact path={RouteType.REVIEW} render={(routerProps) =>
           <AddReviewPage films={films}
             {...routerProps}
             onPostReview={()=>{}}/>}/>
-        <Route exact path="/films/:id?" render={(routerProps) =>
+        <Route exact path={RouteType.FILM_PAGE} render={(routerProps) =>
           <FilmPage films={films} reviews={reviews} {...routerProps}/>} />
         <Route>
           <NotFoundPage/>

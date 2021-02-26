@@ -4,17 +4,16 @@ import FilmReviews from '../film-reviews/film-reviews';
 import FilmOverview from '../film-overview/film-overview';
 import PropTypes from 'prop-types';
 import {filmPropTypes, reviewPropTypes} from '../../prop-types';
-
-const TYPES_TABS = [`Overview`, `Details`, `Reviews`];
+import {TabsTypes} from '../../consts';
 
 const Tabs = ({film, reviews}) => {
-  const [activeTab, setActiveTab] = useState(`Overview`);
+  const [activeTab, setActiveTab] = useState(TabsTypes.OVERVIEW);
 
   const getActiveTab = (tab) => {
     switch (tab) {
-      case `Overview`: return <FilmOverview film={film} />;
-      case `Details`: return <FilmDetails film={film} />;
-      case `Reviews`: return <FilmReviews reviews={reviews} />;
+      case TabsTypes.OVERVIEW: return <FilmOverview film={film} />;
+      case TabsTypes.DETAILS: return <FilmDetails film={film} />;
+      case TabsTypes.REVIEWS: return <FilmReviews reviews={reviews} />;
       default: return <FilmOverview film={film}> </FilmOverview>;
     }
 
@@ -23,7 +22,7 @@ const Tabs = ({film, reviews}) => {
     <div className="movie-card__desc">
       <nav className="movie-nav movie-card__nav">
         <ul className="movie-nav__list">
-          {TYPES_TABS.map((tab, id) => {
+          {Object.values(TabsTypes).map((tab, id) => {
             return (
               <li key={tab + id} className={tab === activeTab ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`}>
                 <a href="#" className="movie-nav__link"
