@@ -92,7 +92,7 @@ export default {
       director: `Wes Andreson`,
       starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
       runTime: 99,
-      genre: `Drama`,
+      genre: `Action`,
       released: 2014,
       isFavorite: false
     },
@@ -130,7 +130,7 @@ export default {
       director: `Wes Andreson`,
       starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
       runTime: 99,
-      genre: `Comedy`,
+      genre: `Romance`,
       released: 2014,
       isFavorite: false
     },
@@ -149,7 +149,7 @@ export default {
       director: `Wes Andreson`,
       starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
       runTime: 99,
-      genre: `Crime`,
+      genre: `Thriller`,
       released: 2014,
       isFavorite: true
     },
@@ -187,7 +187,7 @@ export default {
       director: `Wes Andreson`,
       starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
       runTime: 99,
-      genre: `Horror`,
+      genre: `Documentary`,
       released: 2014,
       isFavorite: false
     },
@@ -225,7 +225,7 @@ export default {
       director: `Wes Andreson`,
       starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`],
       runTime: 99,
-      genre: `Documentary`,
+      genre: `Sci-Fi`,
       released: 2014,
       isFavorite: false
     },

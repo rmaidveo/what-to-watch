@@ -51,6 +51,13 @@ const videoPlayerPropTypes = {
   preview: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired
 };
+const genresListPropTypes = {
+  films: PropTypes.arrayOf(
+      PropTypes.shape(filmPropTypes).isRequired
+  ),
+  genre: PropTypes.string.isRequired,
+  onGenreClick: PropTypes.func.isRequired
+};
 
 export {
   appPropTypes,
@@ -58,5 +65,6 @@ export {
   filmPropTypes,
   filmPreviewPropTypes,
   reviewPropTypes,
-  videoPlayerPropTypes
+  videoPlayerPropTypes,
+  genresListPropTypes
 };
