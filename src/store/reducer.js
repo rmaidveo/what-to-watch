@@ -6,6 +6,7 @@ import reviews from '../mocks/reviews';
 const initialState = {
   genre: GENERE_ALL,
   films: films.films,
+  promo: films.promo,
   reviews,
 };
 
@@ -15,13 +16,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         genre: action.payload
-      };
-
-    case ActionType.GET_FILMS_LIST:
-      return {
-        ...state,
-        films,
-        reviews
       };
   }
 

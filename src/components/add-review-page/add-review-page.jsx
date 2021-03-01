@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Logo from '../logo/logo';
 import {dataPropTypes} from '../../prop-types';
 import PropTypes from 'prop-types';
@@ -18,7 +19,7 @@ const AddReviewPage = (props) => {
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header">
-            <Logo></Logo>
+            <Logo />
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
@@ -52,4 +53,9 @@ AddReviewPage.propTypes = {
   match: PropTypes.object,
   onPostReview: PropTypes.func.isRequired
 };
-export default AddReviewPage;
+const mapStateToProps = (state) => ({
+  films: state.films
+});
+
+export {AddReviewPage};
+export default connect(mapStateToProps, null)(AddReviewPage);

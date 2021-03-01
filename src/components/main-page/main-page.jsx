@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Logo from '../logo/logo.jsx';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -6,10 +6,14 @@ import {appPropTypes} from '../../prop-types';
 import {LOGO_FOOTER} from '../logo/const';
 import GenresList from '../genres-list/genres-list';
 import FilmsList from '../films-list';
-import {sortByGenre} from '../../utils/films';
+import ShowMoreButton from '../show-more-button/show-more-button';
+import {getSortByGenre} from '../../selectors/selectors';
+import {FILMS_COUNT} from '../../consts';
 
 const MainPage = (props) => {
   const {films, promo, reviews} = props;
+  const [filmsCount, setFilmsCount] = useState(FILMS_COUNT);
+  const handleShowMoreButtonClick = () => setFilmsCount((currentCount) => currentCount + FILMS_COUNT);
 
   return (
     <>
@@ -19,7 +23,7 @@ const MainPage = (props) => {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
-          <Logo></Logo>
+          <Logo />
 
           <div className="user-block">
             <div className="user-block__avatar">
@@ -64,14 +68,12 @@ const MainPage = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <GenresList />
-          <FilmsList films={films} reviews={reviews}/>
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <FilmsList films={films.slice(0, filmsCount)} reviews={reviews}/>
+          {filmsCount < films.length && <ShowMoreButton onButtonClick={handleShowMoreButtonClick} />}
         </section>
 
         <footer className="page-footer">
-          <Logo className={LOGO_FOOTER}></Logo>
+          <Logo className={LOGO_FOOTER} />
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
           </div>
@@ -84,7 +86,9 @@ const MainPage = (props) => {
 MainPage.propTypes = appPropTypes;
 
 const mapStateToProps = (state) => ({
-  films: sortByGenre(state.films, state.genre)
+  films: getSortByGenre(state),
+  promo: state.promo,
+  reviews: state.reviews
 });
 
 export {MainPage};

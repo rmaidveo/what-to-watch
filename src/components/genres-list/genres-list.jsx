@@ -6,8 +6,9 @@ import {ActionCreator} from '../../store/action';
 
 const GenresList = (props) => {
   const {films, genre, onGenreClick} = props;
-  const genreList = getGenresType(films);
 
+  const genreList = getGenresType(films);
+  //
   const handleGenreClick = (evt) => {
     evt.preventDefault();
     onGenreClick(evt.target.text);

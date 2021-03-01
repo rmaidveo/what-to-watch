@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
+import {connect} from 'react-redux';
 import Logo from '../logo/logo';
 import {filmPropTypes, reviewPropTypes} from '../../prop-types';
 import FilmsList from '../films-list';
@@ -25,7 +26,7 @@ const FilmPage = (props) => {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header movie-card__head">
-            <Logo></Logo>
+            <Logo />
             <div className="user-block">
               <div className="user-block__avatar">
                 <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
@@ -76,7 +77,7 @@ const FilmPage = (props) => {
           <FilmsList films={sortedFilms}/>
         </section>
         <footer className="page-footer">
-          <Logo className={LOGO_FOOTER}></Logo>
+          <Logo className={LOGO_FOOTER} />
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
           </div>
@@ -95,4 +96,10 @@ FilmPage.propTypes = {
   ),
   match: PropTypes.object
 };
-export default FilmPage;
+const mapStateToProps = (state) => ({
+  films: state.films,
+  reviews: state.reviews
+});
+
+export {FilmPage};
+export default connect(mapStateToProps, null)(FilmPage);

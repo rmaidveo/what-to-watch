@@ -7,6 +7,7 @@ const GeneresCount = {
   MAX: 9,
 };
 const RATING_STARS = 10;
+const FILMS_COUNT = 8;
 const TabsTypes = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,
@@ -28,5 +29,6 @@ export {
   TabsTypes,
   RouteType,
   GENERE_ALL,
-  GeneresCount
+  GeneresCount,
+  FILMS_COUNT
 };

@@ -27,11 +27,8 @@ export const getRunTime = (time) => {
   return min !== 0 ? `${h}h ${min}m` : `${h}h`;
 };
 
-export const sortByGenre = (filmsList, genre) => {
-  if (genre === GENERE_ALL) {
-    return filmsList;
-  }
-  return filmsList.filter((film) => film.genre === genre);
+export const getActiveFilmById = (films, filmId) => {
+  films.find((item) => item.id === parseInt(filmId, 10));
 };
 
 export const getGenresType = (films) => {

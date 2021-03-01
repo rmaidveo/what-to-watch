@@ -1,5 +1,6 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {dataPropTypes} from '../../prop-types';
 
 const PlayerPage = (props) => {
@@ -42,4 +43,10 @@ const PlayerPage = (props) => {
   );
 };
 PlayerPage.propTypes = dataPropTypes;
-export default PlayerPage;
+
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
+export {PlayerPage};
+export default connect(mapStateToProps, null)(PlayerPage);
