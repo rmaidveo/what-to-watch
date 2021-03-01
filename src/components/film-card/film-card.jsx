@@ -37,7 +37,7 @@ const FilmCard = (props) => {
       <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Link to={`/films/${film.id}`}>
           <div className="small-movie-card__image">
-            {isPlaying ? <VideoPlayer isPlaying={isPlaying} src={film.videoLink} preview={film.previewImageSrc} /> : <img src={film.previewImageSrc} alt={film.name} width="280" height="175" />}
+            {isPlaying ? <VideoPlayer isPlaying={isPlaying} src={film.videoLink} preview={film.previewImageSrc} /> : <img src={film.previewImageSrc} alt={film.name} width="280" height="175" /> }
           </div>
         </Link>
         <h3 className="small-movie-card__title">

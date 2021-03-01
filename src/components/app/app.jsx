@@ -7,30 +7,29 @@ import MyListPage from '../my-list-page/my-list-page';
 import PlayerPage from '../player-page/player-page';
 import SignInPage from '../sign-in-page/sign-in-page';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {appPropTypes} from '../../prop-types.js';
 import {RouteType} from '../../consts';
 
-const App = ({films, promo, reviews}) => {
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={RouteType.INDEX}>
-          <MainPage films={films} promo={promo} reviews={reviews} />
+          <MainPage />
         </Route>
         <Route exact path={RouteType.LOGIN}>
           <SignInPage/>
         </Route>
         <Route exact path={RouteType.USER_LIST}>
-          <MyListPage films={films}/>
+          <MyListPage />
         </Route>
         <Route exact path={RouteType.PLAYER} render={(routerProps) =>
-          <PlayerPage films={films} {...routerProps}/>}/>
+          <PlayerPage {...routerProps}/>}/>
         <Route exact path={RouteType.REVIEW} render={(routerProps) =>
-          <AddReviewPage films={films}
+          <AddReviewPage
             {...routerProps}
             onPostReview={()=>{}}/>}/>
         <Route exact path={RouteType.FILM_PAGE} render={(routerProps) =>
-          <FilmPage films={films} reviews={reviews} {...routerProps}/>} />
+          <FilmPage {...routerProps}/>} />
         <Route>
           <NotFoundPage/>
         </Route>
@@ -39,5 +38,5 @@ const App = ({films, promo, reviews}) => {
   );
 };
 
-App.propTypes = appPropTypes;
+App.propTypes = {};
 export default App;
