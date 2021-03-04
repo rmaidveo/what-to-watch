@@ -22,14 +22,12 @@ const App = () => {
         <Route exact path={RouteType.USER_LIST}>
           <MyListPage />
         </Route>
-        <Route exact path={RouteType.PLAYER} render={(routerProps) =>
-          <PlayerPage {...routerProps}/>}/>
+        <Route exact path={RouteType.PLAYER} component={PlayerPage} />
         <Route exact path={RouteType.REVIEW} render={(routerProps) =>
           <AddReviewPage
             {...routerProps}
             onPostReview={()=>{}}/>}/>
-        <Route exact path={RouteType.FILM_PAGE} render={(routerProps) =>
-          <FilmPage {...routerProps}/>} />
+        <Route exact path={RouteType.FILM_PAGE} component={FilmPage} />
         <Route>
           <NotFoundPage/>
         </Route>

@@ -1,18 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {genresListPropTypes} from '../../prop-types';
-import {getGenresType} from '../../utils/films';
-import {ActionCreator} from '../../store/action';
+import {getGenresType} from '../../selectors/selectors';
+import {ActionCreator} from '../../store/actions';
 
 const GenresList = (props) => {
-  const {films, genre, onGenreClick} = props;
+  const {genreList, genre, onGenreClick} = props;
 
-  const genreList = getGenresType(films);
-  //
   const handleGenreClick = (evt) => {
     evt.preventDefault();
     onGenreClick(evt.target.text);
   };
+
   return <>
     <ul className="catalog__genres-list">
       {genreList.map((tab, id) => {
@@ -32,8 +31,8 @@ const GenresList = (props) => {
 GenresList.propTypes = genresListPropTypes;
 
 const mapStateToProps = (state) => ({
-  films: state.films,
   genre: state.genre,
+  genreList: getGenresType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

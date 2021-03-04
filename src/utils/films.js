@@ -1,5 +1,3 @@
-import {GeneresCount, GENERE_ALL} from '../consts';
-
 export const getRating = (rating) => {
   let result = ``;
   if (rating <= 3) {
@@ -29,9 +27,4 @@ export const getRunTime = (time) => {
 
 export const getActiveFilmById = (films, filmId) => {
   films.find((item) => item.id === parseInt(filmId, 10));
-};
-
-export const getGenresType = (films) => {
-  const genresList = films.map((film) => film.genre).sort();
-  return [GENERE_ALL, ...new Set(genresList)].slice(GeneresCount.MIN, GeneresCount.MAX);
 };
