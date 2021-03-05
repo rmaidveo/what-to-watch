@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
 
 const appPropTypes = {
-  promo: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-  }),
+  promo: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
   reviews: PropTypes.array.isRequired
+};
+
+const mainPagePropTypes = {
+  promo: PropTypes.object.isRequired,
+  films: PropTypes.array.isRequired,
+  reviews: PropTypes.array.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
+
 };
 
 const dataPropTypes = PropTypes.arrayOf(PropTypes.object).isRequired;
@@ -61,6 +66,7 @@ const genresListPropTypes = {
 
 export {
   appPropTypes,
+  mainPagePropTypes,
   dataPropTypes,
   filmPropTypes,
   filmPreviewPropTypes,

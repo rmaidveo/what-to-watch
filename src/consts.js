@@ -22,6 +22,10 @@ const RouteType = {
   FILM_PAGE: `/films/:id?`
 };
 const GENERE_ALL = `All genres`;
+const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
 
 export {
   RATING_STARS,
@@ -30,5 +34,6 @@ export {
   RouteType,
   GENERE_ALL,
   GeneresCount,
-  FILMS_COUNT
+  FILMS_COUNT,
+  AuthorizationStatus
 };

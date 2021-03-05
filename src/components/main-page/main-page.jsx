@@ -1,19 +1,33 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Logo from '../logo/logo.jsx';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {appPropTypes} from '../../prop-types';
+import {mainPagePropTypes} from '../../prop-types';
 import {LOGO_FOOTER} from '../logo/const';
 import GenresList from '../genres-list/genres-list';
 import FilmsList from '../films-list';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import {getSortByGenre} from '../../selectors/selectors';
 import {FILMS_COUNT} from '../../consts';
+import LoadingPage from '../loading-page/loading-page';
+import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 
 const MainPage = (props) => {
-  const {films, promo, reviews} = props;
+  const {films, promo, reviews, isDataLoaded, onLoadData} = props;
   const [filmsCount, setFilmsCount] = useState(FILMS_COUNT);
   const handleShowMoreButtonClick = () => setFilmsCount((currentCount) => currentCount + FILMS_COUNT);
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingPage />
+    );
+  }
 
   return (
     <>
@@ -83,13 +97,21 @@ const MainPage = (props) => {
   );
 };
 
-MainPage.propTypes = appPropTypes;
+MainPage.propTypes = mainPagePropTypes;
 
 const mapStateToProps = (state) => ({
   films: getSortByGenre(state),
   promo: state.promo,
-  reviews: state.reviews
+  reviews: state.reviews,
+  isDataLoaded: state.isDataLoaded,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchFilmsList());
+    dispatch(fetchPromoFilm());
+  },
 });
 
 export {MainPage};
-export default connect(mapStateToProps, null)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
