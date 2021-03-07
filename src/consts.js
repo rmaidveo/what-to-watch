@@ -16,6 +16,7 @@ const TabsTypes = {
 const RouteType = {
   INDEX: `/`,
   LOGIN: `/login`,
+  LOG_OUT: `/logout`,
   USER_LIST: `/mylist`,
   PLAYER: `/player/:id?`,
   REVIEW: `/films/:id?/review`,

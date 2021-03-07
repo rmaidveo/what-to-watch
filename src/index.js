@@ -14,8 +14,11 @@ import {AuthorizationStatus} from "./consts";
 const api = createAPI(
     () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH))
 );
+
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
+
 store.dispatch(checkAuth());
+
 ReactDOM.render(
     <Provider store={store}>
       <App />
