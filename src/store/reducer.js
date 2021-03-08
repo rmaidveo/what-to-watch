@@ -1,5 +1,5 @@
 import {ActionType} from './actions';
-import {GENERE_ALL} from '../consts';
+import {GENERE_ALL, AuthorizationStatus} from '../consts';
 import {adapterFilms, adapterFilm} from '../adapters/films';
 
 const initialState = {
@@ -8,6 +8,8 @@ const initialState = {
   promo: {},
   reviews: [],
   isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  userInfo: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +31,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         promo: adaptedPromo
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
+    case ActionType.GET_USER_INFO:
+      return {
+        ...state,
+        userInfo: action.payload,
       };
   }
 

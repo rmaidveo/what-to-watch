@@ -1,7 +1,9 @@
 export const ActionType = {
   CHANGE_GENRE: `genre/changeGenre`,
   LOAD_FILMS_LIST: `data/loadFilmsList`,
-  LOAD_PROMO_FILM: `data/loadPromoFilm`
+  LOAD_PROMO_FILM: `data/loadPromoFilm`,
+  REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
+  GET_USER_INFO: `/getUserInfo`
 };
 
 export const ActionCreator = {
@@ -16,5 +18,13 @@ export const ActionCreator = {
   loadPromoFilm: (promo) => ({
     type: ActionType.LOAD_PROMO_FILM,
     payload: promo
-  })
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  getUserInfo: (userInfo) => ({
+    type: ActionType.GET_USER_INFO,
+    payload: userInfo,
+  }),
 };

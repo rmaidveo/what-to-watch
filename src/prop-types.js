@@ -1,22 +1,5 @@
 import PropTypes from 'prop-types';
 
-const appPropTypes = {
-  promo: PropTypes.object.isRequired,
-  films: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired
-};
-
-const mainPagePropTypes = {
-  promo: PropTypes.object.isRequired,
-  films: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-
-};
-
-const dataPropTypes = PropTypes.arrayOf(PropTypes.object).isRequired;
-
 const filmPropTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
@@ -36,11 +19,15 @@ const filmPropTypes = {
   released: PropTypes.number.isRequired,
   isFavorite: PropTypes.bool.isRequired,
 };
-const filmPreviewPropTypes = {
-  id: PropTypes.number.isRequired,
+
+const promoPropTypes = {
   name: PropTypes.string.isRequired,
   imageSrc: PropTypes.string.isRequired,
+  previewImage: PropTypes.string,
+  backgroundImage: PropTypes.string.isRequired,
+  backgroundColor: PropTypes.string,
 };
+
 const reviewPropTypes = {
   id: PropTypes.number.isRequired,
   user: PropTypes.shape({
@@ -51,19 +38,51 @@ const reviewPropTypes = {
   comment: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired
 };
+
+const filmListPropTypes = PropTypes.arrayOf(
+    PropTypes.shape(filmPropTypes).isRequired
+);
+
+const reviewsListPropsTypes = PropTypes.arrayOf(
+    PropTypes.shape(reviewPropTypes).isRequired
+);
+
+const appPropTypes = {
+  promo: promoPropTypes,
+  films: filmListPropTypes,
+  reviews: reviewsListPropsTypes
+};
+
+const mainPagePropTypes = {
+  promo: promoPropTypes,
+  films: filmListPropTypes,
+  reviews: reviewsListPropsTypes,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
+};
+
+const dataPropTypes = PropTypes.arrayOf(PropTypes.object).isRequired;
+
+const filmPreviewPropTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string.isRequired,
+};
 const videoPlayerPropTypes = {
   isPlaying: PropTypes.bool.isRequired,
   preview: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired
 };
 const genresListPropTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(filmPropTypes).isRequired
-  ),
+  films: filmListPropTypes,
   genre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired
 };
-
+const avatarPropTypes = {
+  userInfo: PropTypes.shape({
+    email: PropTypes.string.isRequired
+  })
+};
 export {
   appPropTypes,
   mainPagePropTypes,
@@ -72,5 +91,6 @@ export {
   filmPreviewPropTypes,
   reviewPropTypes,
   videoPlayerPropTypes,
-  genresListPropTypes
+  genresListPropTypes,
+  avatarPropTypes
 };

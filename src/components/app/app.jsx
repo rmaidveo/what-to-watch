@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router as BrowserRouter} from "react-router-dom";
 import MainPage from '../main-page/main-page';
 import AddReviewPage from '../add-review-page/add-review-page';
 import FilmPage from '../film-page/film-page';
@@ -8,10 +8,12 @@ import PlayerPage from '../player-page/player-page';
 import SignInPage from '../sign-in-page/sign-in-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {RouteType} from '../../consts';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from "../../browser-history";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory} >
       <Switch>
         <Route exact path={RouteType.INDEX}>
           <MainPage />
@@ -19,14 +21,16 @@ const App = () => {
         <Route exact path={RouteType.LOGIN}>
           <SignInPage/>
         </Route>
-        <Route exact path={RouteType.USER_LIST}>
-          <MyListPage />
-        </Route>
+        <PrivateRoute exact path={RouteType.USER_LIST}
+          render={() => (<MyListPage />)} />
         <Route exact path={RouteType.PLAYER} component={PlayerPage} />
-        <Route exact path={RouteType.REVIEW} render={(routerProps) =>
-          <AddReviewPage
-            {...routerProps}
-            onPostReview={()=>{}}/>}/>
+        <PrivateRoute exact
+          path={RouteType.REVIEW}
+          render={(routerProps) =>
+            <AddReviewPage
+              {...routerProps}
+              onPostReview={()=>{}}/>}>
+        </PrivateRoute>
         <Route exact path={RouteType.FILM_PAGE} component={FilmPage} />
         <Route>
           <NotFoundPage/>
