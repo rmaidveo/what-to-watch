@@ -27,6 +27,10 @@ const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };
+const TextArea = {
+  MIN: 40,
+  MAX: 400
+};
 
 export {
   RATING_STARS,
@@ -36,5 +40,6 @@ export {
   GENERE_ALL,
   GeneresCount,
   FILMS_COUNT,
-  AuthorizationStatus
+  AuthorizationStatus,
+  TextArea
 };

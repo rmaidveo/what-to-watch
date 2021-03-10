@@ -1,49 +1,57 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {useHistory} from 'react-router-dom';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import Logo from '../logo/logo';
-import {filmPropTypes, reviewPropTypes} from '../../prop-types';
+import {filmPageOfFilmPropTypes} from '../../prop-types';
 import FilmsList from '../films-list';
 import {LOGO_FOOTER} from '../logo/const';
 import Tabs from '../tabs/tabs';
+import {AuthorizationStatus} from '../../consts';
+import NotFoundPage from '../not-found-page/not-found-page';
+import {fetchCommentsOnFilmByID, fetchFilmById, fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
+import Avatar from '../avatar/avatar';
+import Autorized from '../autorized/autorized';
+import {useParams} from 'react-router-dom';
 
 const FilmPage = (props) => {
-  const {films, reviews} = props;
-  const {id: filmId} = props.match.params;
-  const film = films.find((item) => item.id === parseInt(filmId, 10));
-  const history = useHistory();
-  const sortedFilms = films.filter((sortFilm) => (sortFilm.genre === film.genre && sortFilm.id !== film.id)).slice(0, 4);
+  const {films, authorizationStatus, onAddReviewСlick, onPlayerVideoСlick, activeFilm, commentsOnActiveFilm, activeFilmLoaded, onLoadFilmById} = props;
+  const id = parseInt(useParams().id, 10);
+  const sortedFilms = films.filter((sortFilm) => (sortFilm.genre === activeFilm.genre && sortFilm.id !== activeFilm.id)).slice(0, 4);
+
+  useEffect(() => {
+    onLoadFilmById(id);
+  }, []);
+
+  if (!activeFilmLoaded) {
+    return (
+      <NotFoundPage />
+    );
+  }
 
   return (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={activeFilm.backgroundImage} alt={activeFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header movie-card__head">
             <Logo />
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
+            {authorizationStatus === AuthorizationStatus.AUTH ? <Avatar/> : <Autorized />}
           </header>
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{film.name}</h2>
+              <h2 className="movie-card__title">{activeFilm.name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{film.genre}</span>
-                <span className="movie-card__year">{film.released}</span>
+                <span className="movie-card__genre">{activeFilm.genre}</span>
+                <span className="movie-card__year">{activeFilm.released}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button onClick={() => history.push(`../player/${film.id}`)} className="btn btn--play movie-card__button" type="button">
+                <button onClick={() => onPlayerVideoСlick()} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -55,7 +63,7 @@ const FilmPage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <button onClick={() => history.push(`${film.id}/review`)} className="btn movie-card__button">Add review</button>
+                {authorizationStatus === AuthorizationStatus.AUTH ? <button onClick={() => onAddReviewСlick()} className="btn movie-card__button">Add review</button> : ``}
               </div>
             </div>
           </div>
@@ -64,9 +72,9 @@ const FilmPage = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={film.imageSrc} alt={film.name} width="218" height="327" />
+              <img src={activeFilm.imageSrc} alt={activeFilm.name} width="218" height="327" />
             </div>
-            <Tabs film={film} reviews={reviews}> </Tabs>
+            <Tabs film={activeFilm} reviews={commentsOnActiveFilm}> </Tabs>
           </div>
         </div>
       </section>
@@ -87,19 +95,23 @@ const FilmPage = (props) => {
   );
 };
 
-FilmPage.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(filmPropTypes).isRequired
-  ),
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape(reviewPropTypes).isRequired,
-  ),
-  match: PropTypes.object
-};
+FilmPage.propTypes = filmPageOfFilmPropTypes;
+
 const mapStateToProps = (state) => ({
   films: state.films,
-  reviews: state.reviews
+  activeFilmLoaded: state.activeFilmLoaded,
+  authorizationStatus: state.authorizationStatus,
+  activeFilm: state.activeFilm,
+  commentsOnActiveFilm: state.commentsOnActiveFilm
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFilmById(id) {
+    dispatch(fetchPromoFilm());
+    dispatch(fetchFilmsList());
+    dispatch(fetchFilmById(id));
+    dispatch(fetchCommentsOnFilmByID(id));
+  }
+});
 export {FilmPage};
-export default connect(mapStateToProps, null)(FilmPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FilmPage);

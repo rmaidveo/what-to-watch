@@ -3,7 +3,13 @@ export const ActionType = {
   LOAD_FILMS_LIST: `data/loadFilmsList`,
   LOAD_PROMO_FILM: `data/loadPromoFilm`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
-  GET_USER_INFO: `/getUserInfo`
+  GET_USER_INFO: `/getUserInfo`,
+  REDIRECT_TO_ROUTE: `game/redirectToRoute`,
+  LOAD_FILM_BY_ID: `data/loadFilmById`,
+  LOAD_COMMENTS: `data/loadComments`,
+  POST_COMMENT: `data/postComment`,
+  SET_REVIEW_FORM_DISABLED: `review/setReviewFormDisabled`,
+  REVIEW_FORM_ERROR: `review/onReviewFormError`
 };
 
 export const ActionCreator = {
@@ -26,5 +32,29 @@ export const ActionCreator = {
   getUserInfo: (userInfo) => ({
     type: ActionType.GET_USER_INFO,
     payload: userInfo,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
+  }),
+  loadFilmById: (film) => ({
+    type: ActionType.LOAD_FILM_BY_ID,
+    payload: film,
+  }),
+  loadComments: (comments)=>({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments
+  }),
+  postComment: (comment)=>({
+    type: ActionType.POST_COMMENT,
+    payload: comment
+  }),
+  setReviewFormDisabled: (disabled) => ({
+    type: ActionType.SET_REVIEW_FORM_DISABLED,
+    payload: disabled
+  }),
+  onReviewFormError: (error) => ({
+    type: ActionType.REVIEW_FORM_ERROR,
+    payload: error
   }),
 };

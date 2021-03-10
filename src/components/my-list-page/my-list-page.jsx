@@ -3,12 +3,11 @@ import FilmsList from '../films-list';
 import Logo from '../logo/logo.jsx';
 import {dataPropTypes} from '../../prop-types';
 import {LOGO_FOOTER} from '../logo/const';
+import {connect} from 'react-redux';
 
 const MyListPage = (props) => {
   const {films} = props;
-  const favoriteFilms = films.filter(function (film) {
-    return film.isFavorite;
-  });
+  const favoriteFilms = films.filter((film) => film.isFavorite);
 
   return (
     <>
@@ -38,6 +37,10 @@ const MyListPage = (props) => {
     </>
   );
 };
+const mapStateToProps = (state) => ({
+  films: state.films
+});
 
 MyListPage.propTypes = dataPropTypes;
-export default MyListPage;
+export {MyListPage};
+export default connect(mapStateToProps, null)(MyListPage);

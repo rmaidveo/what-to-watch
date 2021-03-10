@@ -54,7 +54,6 @@ const appPropTypes = {
 };
 
 const mainPagePropTypes = {
-  promo: promoPropTypes,
   films: filmListPropTypes,
   reviews: reviewsListPropsTypes,
   isDataLoaded: PropTypes.bool.isRequired,
@@ -83,6 +82,26 @@ const avatarPropTypes = {
     email: PropTypes.string.isRequired
   })
 };
+
+const filmPageOfFilmPropTypes = {
+  films: filmListPropTypes,
+  activeFilm: PropTypes.object.isRequired,
+  commentsOnActiveFilm: reviewsListPropsTypes,
+  authorizationStatus: PropTypes.string.isRequired,
+  activeFilmLoaded: PropTypes.bool.isRequired,
+  onLoadFilmById: PropTypes.func.isRequired
+};
+
+const addReviewPagePropTypes = {
+  onPostReview: PropTypes.func.isRequired,
+  activeFilmLoaded: PropTypes.bool.isRequired,
+  onLoadFilmById: PropTypes.func.isRequired,
+};
+const formReviewPropTypes = {
+  onPostReview: PropTypes.func.isRequired,
+  isReviewFormDisabled: PropTypes.bool.isRequired
+};
+
 export {
   appPropTypes,
   mainPagePropTypes,
@@ -92,5 +111,8 @@ export {
   reviewPropTypes,
   videoPlayerPropTypes,
   genresListPropTypes,
-  avatarPropTypes
+  avatarPropTypes,
+  filmPageOfFilmPropTypes,
+  addReviewPagePropTypes,
+  formReviewPropTypes
 };

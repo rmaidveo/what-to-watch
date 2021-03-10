@@ -108,8 +108,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
-    dispatch(fetchFilmsList());
     dispatch(fetchPromoFilm());
+    dispatch(fetchFilmsList());
   },
 });
 

@@ -1,16 +1,13 @@
 import React, {useRef} from 'react';
-import {useHistory} from 'react-router-dom';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {login, getUserInfo} from "../../store/api-actions";
 import Logo from '../logo/logo';
 import {LOGO_FOOTER} from '../logo/const';
-import {RouteType} from '../../consts';
 
 const SignInPage = ({onSubmit, setUserInfo}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
-  const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -21,7 +18,6 @@ const SignInPage = ({onSubmit, setUserInfo}) => {
     });
 
     setUserInfo();
-    history.push(RouteType.INDEX);
   };
 
 

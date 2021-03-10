@@ -22,8 +22,13 @@ const App = () => {
           <SignInPage/>
         </Route>
         <PrivateRoute exact path={RouteType.USER_LIST}
-          render={() => (<MyListPage />)} />
-        <Route exact path={RouteType.PLAYER} component={PlayerPage} />
+          render={() => <MyListPage /> }
+        />
+        <Route exact path={RouteType.PLAYER} render={
+          ({history}) => {
+            return <PlayerPage onExitButtonClick={() => history.goBack()}
+            />;
+          }} />
         <PrivateRoute exact
           path={RouteType.REVIEW}
           render={(routerProps) =>
@@ -31,7 +36,12 @@ const App = () => {
               {...routerProps}
               onPostReview={()=>{}}/>}>
         </PrivateRoute>
-        <Route exact path={RouteType.FILM_PAGE} component={FilmPage} />
+        <Route exact path={RouteType.FILM_PAGE} render={
+          ({history, match}) => {
+            return <FilmPage onAddReviewСlick={() => history.push(`/films/${match.params.id}/review`)}
+              onPlayerVideoСlick={() => history.push(`../player/${match.params.id}`)}/>;
+          }
+        } />
         <Route>
           <NotFoundPage/>
         </Route>

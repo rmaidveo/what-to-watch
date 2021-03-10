@@ -1,21 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Logo from '../logo/logo';
-import {dataPropTypes} from '../../prop-types';
-import PropTypes from 'prop-types';
 import FormReview from '../form-review/form-review';
+import {useParams} from 'react-router-dom';
+import NotFoundPage from '../not-found-page/not-found-page';
+import {fetchFilmById} from '../../store/api-actions';
+import {addReviewPagePropTypes} from '../../prop-types';
 
 const AddReviewPage = (props) => {
-  const {films, onPostReview} = props;
-  const {id: filmId} = props.match.params;
-  const film = films.find((item) => item.id === parseInt(filmId, 10));
+  const {activeFilm, activeFilmLoaded, onLoadFilmById, onPostReview} = props;
+  const id = parseInt(useParams().id, 10);
+
+  useEffect(() => {
+    onLoadFilmById(id);
+  }, []);
+
+  if (!activeFilmLoaded) {
+    return (
+      <NotFoundPage />
+    );
+  }
+
   return (
     <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__header">
           <div className="movie-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={activeFilm.backgroundImage} alt={activeFilm.name} />
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header">
@@ -23,7 +35,7 @@ const AddReviewPage = (props) => {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link className="breadcrumbs__link" to={`/films/${film.id}`}> {film.name}</Link>
+                  <Link className="breadcrumbs__link" to={`/films/${activeFilm.id}`}> {activeFilm.name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -37,7 +49,7 @@ const AddReviewPage = (props) => {
             </div>
           </header>
           <div className="movie-card__poster movie-card__poster--small">
-            <img src={film.imageSrc} alt={film.name} width="218" height="327" />
+            <img src={activeFilm.imageSrc} alt={activeFilm.name} width="218" height="327" />
           </div>
         </div>
         <div className="add-review">
@@ -48,14 +60,18 @@ const AddReviewPage = (props) => {
   );
 };
 
-AddReviewPage.propTypes = {
-  films: dataPropTypes,
-  match: PropTypes.object,
-  onPostReview: PropTypes.func.isRequired
-};
+AddReviewPage.propTypes = addReviewPagePropTypes;
+
 const mapStateToProps = (state) => ({
-  films: state.films
+  films: state.films,
+  activeFilmLoaded: state.activeFilmLoaded,
+  activeFilm: state.activeFilm
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadFilmById(id) {
+    dispatch(fetchFilmById(id));
+  }
+});
 export {AddReviewPage};
-export default connect(mapStateToProps, null)(AddReviewPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AddReviewPage);
