@@ -22,8 +22,18 @@ const RouteType = {
   REVIEW: `/films/:id?/review`,
   FILM_PAGE: `/films/:id?`
 };
+const APIRoute = {
+  INDEX: `/`,
+  LOGIN: `/login`,
+  LOG_OUT: `/logout`,
+  USER_LIST: `/favorite`,
+  PROMO_FILM: `/films/promo`,
+  FILMS: `/films`,
+  COMMENTS: `/comments`
+};
 const GENERE_ALL = `All genres`;
 const AuthorizationStatus = {
+  INIT: `INIT`,
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };
@@ -41,5 +51,6 @@ export {
   GeneresCount,
   FILMS_COUNT,
   AuthorizationStatus,
-  TextArea
+  TextArea,
+  APIRoute
 };

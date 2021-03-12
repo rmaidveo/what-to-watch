@@ -15,6 +15,9 @@ const initialState = {
   commentsOnActiveFilm: [],
   sendingComment: {},
   isReviewFormDisabled: false,
+  isFavoriteFilmsList: [],
+  isFavoriteDataLoaded: false,
+  isLoginError: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,12 +34,19 @@ const reducer = (state = initialState, action) => {
         films: adaptedFilms,
         isDataLoaded: true
       };
+    case ActionType.LOAD_FAVORITE_FILMS_LIST:
+      const adaptedFavoriteFilms = adapterFilms(action.payload);
+      return {
+        ...state,
+        isFavoriteFilmsList: adaptedFavoriteFilms,
+        isFavoriteDataLoaded: true
+      };
     case ActionType.LOAD_PROMO_FILM:
       const adaptedPromo = adapterFilm(action.payload);
       return {
         ...state,
         promo: adaptedPromo,
-        isDataLoaded: true
+        isPromoLoaded: true
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {
@@ -69,6 +79,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isReviewFormDisabled: action.payload
+      };
+    case ActionType.AUTHORIZATION_ERROR:
+      return {
+        ...state,
+        isLoginError: action.payload
       };
   }
 

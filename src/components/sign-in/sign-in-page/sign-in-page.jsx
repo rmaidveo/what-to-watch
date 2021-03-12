@@ -1,22 +1,34 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {login, getUserInfo} from "../../store/api-actions";
-import Logo from '../logo/logo';
-import {LOGO_FOOTER} from '../logo/const';
+import {login, getUserInfo} from "../../../store/api-actions";
+import Logo from '../../logo/logo';
+import {LOGO_FOOTER} from '../../logo/const';
+import SignInErrorMessage from '../sign-in-error-message/sign-in-error-message';
 
 const SignInPage = ({onSubmit, setUserInfo}) => {
   const loginRef = useRef();
   const passwordRef = useRef();
+  const [isValidEmail, setValidEmail] = useState(true);
+
+  const onSubmitButtonHandler = (evt) => {
+    let isSubmiting = true;
+    if (loginRef.current.checkValidity() === false) {
+      setValidEmail(false);
+      isSubmiting = false;
+    } else {
+      setValidEmail(true);
+    }
+    if (!isSubmiting || (passwordRef.current.value === `` && loginRef.current.value !== ``)) {
+      evt.preventDefault();
+    }
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    onSubmit({
-      login: loginRef.current.value,
-      password: passwordRef.current.value,
-    });
-
+    let log = loginRef.current.value;
+    let password = passwordRef.current.value;
+    onSubmit({login: log, password});
     setUserInfo();
   };
 
@@ -28,11 +40,11 @@ const SignInPage = ({onSubmit, setUserInfo}) => {
           <Logo />
           <h1 className="page-title user-page__title">Sign in</h1>
         </header>
-
         <div className="sign-in user-page__content">
           <form action="" className="sign-in__form" onSubmit={handleSubmit}>
+            <SignInErrorMessage isValidEmail={isValidEmail}/>
             <div className="sign-in__fields">
-              <div className="sign-in__field">
+              <div className={isValidEmail ? `sign-in__field` : `sign-in__field--error sign-in__field--error`}>
                 <input className="sign-in__input"
                   ref={loginRef}
                   type="email"
@@ -55,7 +67,7 @@ const SignInPage = ({onSubmit, setUserInfo}) => {
               </div>
             </div>
             <div className="sign-in__submit">
-              <button
+              <button onClick={onSubmitButtonHandler}
                 className="sign-in__btn"
                 type="submit">Sign in</button>
             </div>

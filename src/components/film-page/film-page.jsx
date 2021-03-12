@@ -7,7 +7,7 @@ import {LOGO_FOOTER} from '../logo/const';
 import Tabs from '../tabs/tabs';
 import {AuthorizationStatus} from '../../consts';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {fetchCommentsOnFilmByID, fetchFilmById, fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
+import {fetchCommentsOnFilmByID, fetchFilmById} from '../../store/api-actions';
 import Avatar from '../avatar/avatar';
 import Autorized from '../autorized/autorized';
 import {useParams} from 'react-router-dom';
@@ -18,8 +18,10 @@ const FilmPage = (props) => {
   const sortedFilms = films.filter((sortFilm) => (sortFilm.genre === activeFilm.genre && sortFilm.id !== activeFilm.id)).slice(0, 4);
 
   useEffect(() => {
-    onLoadFilmById(id);
-  }, []);
+    if (!activeFilmLoaded || activeFilm.id !== id) {
+      onLoadFilmById(id);
+    }
+  }, [activeFilm]);
 
   if (!activeFilmLoaded) {
     return (
@@ -29,7 +31,8 @@ const FilmPage = (props) => {
 
   return (
     <>
-      <section className="movie-card movie-card--full">
+      <section style={{backgroundColor: activeFilm.backgroundColor}}
+        className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={activeFilm.backgroundImage} alt={activeFilm.name} />
@@ -107,8 +110,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilmById(id) {
-    dispatch(fetchPromoFilm());
-    dispatch(fetchFilmsList());
     dispatch(fetchFilmById(id));
     dispatch(fetchCommentsOnFilmByID(id));
   }

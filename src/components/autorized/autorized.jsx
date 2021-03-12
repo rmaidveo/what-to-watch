@@ -1,14 +1,31 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {RouteType} from '../../consts';
+import {ActionCreator} from "../../store/actions";
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
+const Autorized = ({onSignInClick}) => {
 
-const Autorized = () => {
+  const handleSignInClick = (evt) => {
+    evt.preventDefault();
+    onSignInClick();
+  };
+
   return (
     <div className="user-block">
-      <Link to={RouteType.LOGIN} className="user-block__link">Sign in</Link>
+      <a href="#" onClick={handleSignInClick} className="user-block__link">Sign in</a>
     </div>
   );
 };
 
-export default Autorized;
+Autorized.propTypes = {
+  onSignInClick: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onSignInClick() {
+    dispatch(ActionCreator.redirectToRoute(`/login`));
+  }
+});
+
+export {Autorized};
+export default connect(null, mapDispatchToProps)(Autorized);
