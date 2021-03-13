@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Logo from '../logo/logo.jsx';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
@@ -9,28 +9,14 @@ import FilmsList from '../films-list';
 import ShowMoreButton from '../show-more-button/show-more-button';
 import {getSortByGenre} from '../../selectors/selectors';
 import {FILMS_COUNT} from '../../consts';
-import LoadingPage from '../loading-page/loading-page';
 import Avatar from '../avatar/avatar';
 import Autorized from '../autorized/autorized';
-import {fetchFilmsList, fetchPromoFilm} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../consts';
 
 const MainPage = (props) => {
-  const {films, promo, reviews, authorizationStatus, isDataLoaded, onLoadData, userInfo} = props;
+  const {films, promo, reviews, authorizationStatus} = props;
   const [filmsCount, setFilmsCount] = useState(FILMS_COUNT);
   const handleShowMoreButtonClick = () => setFilmsCount((currentCount) => currentCount + FILMS_COUNT);
-
-  useEffect(() => {
-    if (!isDataLoaded) {
-      onLoadData();
-    }
-  }, [isDataLoaded]);
-
-  if (!isDataLoaded) {
-    return (
-      <LoadingPage />
-    );
-  }
 
   return (
     <>
@@ -41,7 +27,7 @@ const MainPage = (props) => {
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
           <Logo />
-          {authorizationStatus === AuthorizationStatus.AUTH ? <Avatar userInfo={userInfo}/> : <Autorized />}
+          {authorizationStatus === AuthorizationStatus.AUTH ? <Avatar /> : <Autorized />}
         </header>
 
         <div className="movie-card__wrap">
@@ -101,17 +87,8 @@ const mapStateToProps = (state) => ({
   films: getSortByGenre(state),
   promo: state.promo,
   reviews: state.reviews,
-  isDataLoaded: state.isDataLoaded,
-  authorizationStatus: state.authorizationStatus,
-  userInfo: state.userInfo,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData() {
-    dispatch(fetchFilmsList());
-    dispatch(fetchPromoFilm());
-  },
+  authorizationStatus: state.authorizationStatus
 });
 
 export {MainPage};
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, null)(MainPage);

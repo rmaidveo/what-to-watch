@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 
-const filmPropTypes = {
+const filmPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   imageSrc: PropTypes.string.isRequired,
-  previewImage: PropTypes.string,
   backgroundImage: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string,
+  backgroundColor: PropTypes.string.isRequired,
   videoLink: PropTypes.string.isRequired,
-  previewVideoLink: PropTypes.string,
+  previewVideoLink: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   scoresCount: PropTypes.number.isRequired,
@@ -18,15 +17,7 @@ const filmPropTypes = {
   genre: PropTypes.string.isRequired,
   released: PropTypes.number.isRequired,
   isFavorite: PropTypes.bool.isRequired,
-};
-
-const promoPropTypes = {
-  name: PropTypes.string.isRequired,
-  imageSrc: PropTypes.string.isRequired,
-  previewImage: PropTypes.string,
-  backgroundImage: PropTypes.string.isRequired,
-  backgroundColor: PropTypes.string,
-};
+}).isRequired;
 
 const reviewPropTypes = {
   id: PropTypes.number.isRequired,
@@ -48,17 +39,14 @@ const reviewsListPropsTypes = PropTypes.arrayOf(
 );
 
 const appPropTypes = {
-  promo: promoPropTypes,
-  films: filmListPropTypes,
-  reviews: reviewsListPropsTypes
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
 };
 
 const mainPagePropTypes = {
-  promo: promoPropTypes,
   films: filmListPropTypes,
+  promo: filmPropTypes,
   reviews: reviewsListPropsTypes,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
 };
 
 const dataPropTypes = PropTypes.arrayOf(PropTypes.object).isRequired;
@@ -83,6 +71,32 @@ const avatarPropTypes = {
     email: PropTypes.string.isRequired
   })
 };
+
+const filmPageOfFilmPropTypes = {
+  films: filmListPropTypes,
+  activeFilm: PropTypes.object.isRequired,
+  commentsOnActiveFilm: reviewsListPropsTypes,
+  authorizationStatus: PropTypes.string.isRequired,
+  activeFilmLoaded: PropTypes.bool.isRequired,
+  onLoadFilmById: PropTypes.func.isRequired
+};
+
+const addReviewPagePropTypes = {
+  onPostReview: PropTypes.func.isRequired,
+  activeFilmLoaded: PropTypes.bool.isRequired,
+  onLoadFilmById: PropTypes.func.isRequired,
+};
+const formReviewPropTypes = {
+  onPostReview: PropTypes.func.isRequired,
+  isReviewFormDisabled: PropTypes.bool.isRequired
+};
+const myListPropTypes = {
+  isFavoriteFilmsList: filmListPropTypes,
+  isFavoriteDataLoaded: PropTypes.bool.isRequired,
+  onLoadFavoriteData: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
+};
+
 export {
   appPropTypes,
   mainPagePropTypes,
@@ -92,5 +106,9 @@ export {
   reviewPropTypes,
   videoPlayerPropTypes,
   genresListPropTypes,
-  avatarPropTypes
+  avatarPropTypes,
+  filmPageOfFilmPropTypes,
+  addReviewPagePropTypes,
+  formReviewPropTypes,
+  myListPropTypes
 };

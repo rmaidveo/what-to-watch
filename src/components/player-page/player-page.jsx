@@ -1,18 +1,17 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {dataPropTypes} from '../../prop-types';
+import {useParams} from 'react-router-dom';
 
 const PlayerPage = (props) => {
-  const {films} = props;
-  const {id: filmId} = props.match.params;
-  const film = films.find((item) => item.id === parseInt(filmId, 10));
-  const history = useHistory();
+  const {films, onExitButtonClick} = props;
+  const id = parseInt(useParams().id, 10);
+  const film = films.find((item) => item.id === parseInt(id, 10));
   return (
     <>
       <div className="player">
         <video src="#" className="player__video" poster={film.imageSrc}></video>
-        <button onClick={() => history.goBack()} type="button" className="player__exit">Exit</button>
+        <button onClick={() => onExitButtonClick()} type="button" className="player__exit">Exit</button>
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
@@ -45,7 +44,7 @@ const PlayerPage = (props) => {
 PlayerPage.propTypes = dataPropTypes;
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  films: state.films
 });
 
 export {PlayerPage};
