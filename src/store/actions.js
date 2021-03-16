@@ -1,70 +1,90 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_GENRE: `genre/changeGenre`,
+  SHOW_MORE_FILMS: `app/showMoreFilms`,
   LOAD_FILMS_LIST: `data/loadFilmsList`,
   LOAD_FAVORITE_FILMS_LIST: `data/loadFavoriteFilmsList`,
   LOAD_PROMO_FILM: `data/loadPromoFilm`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   AUTHORIZATION_ERROR: `user/authorizationError`,
-  GET_USER_INFO: `/getUserInfo`,
-  REDIRECT_TO_ROUTE: `game/redirectToRoute`,
+  GET_USER_INFO: `user/getUserInfo`,
+  REDIRECT_TO_ROUTE: `app/redirectToRoute`,
   LOAD_FILM_BY_ID: `data/loadFilmById`,
   LOAD_COMMENTS: `data/loadComments`,
   POST_COMMENT: `data/postComment`,
   SET_REVIEW_FORM_DISABLED: `review/setReviewFormDisabled`,
   REVIEW_FORM_ERROR: `review/onReviewFormError`
 };
-
-export const ActionCreator = {
-  changeGenre: (genre) => ({
-    type: ActionType.CHANGE_GENRE,
+export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
+  return {
     payload: genre,
-  }),
-  loadFilmsList: (films) => ({
-    type: ActionType.LOAD_FILMS_LIST,
-    payload: films
-  }),
-  loadFavoriteFilmsList: (films) => ({
-    type: ActionType.LOAD_FAVORITE_FILMS_LIST,
-    payload: films
-  }),
-  loadPromoFilm: (promo) => ({
-    type: ActionType.LOAD_PROMO_FILM,
-    payload: promo
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
+  };
+});
+export const showMoreFilms = createAction(ActionType.SHOW_MORE_FILMS);
+export const loadFilmsList = createAction(ActionType.LOAD_FILMS_LIST, (films) => {
+  return {
+    payload: films,
+  };
+});
+
+export const loadFavoriteFilmsList = createAction(ActionType.LOAD_FAVORITE_FILMS_LIST, (films) => {
+  return {
+    payload: films,
+  };
+});
+
+export const loadPromoFilm = createAction(ActionType.LOAD_PROMO_FILM, (promo) => {
+  return {
+    payload: promo,
+  };
+});
+
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => {
+  return {
     payload: status,
-  }),
-  getUserAuthInfo: (userInfo) => ({
-    type: ActionType.GET_USER_INFO,
+  };
+});
+export const getUserAuthInfo = createAction(ActionType.GET_USER_INFO, (userInfo) => {
+  return {
     payload: userInfo,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
+  };
+});
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => {
+  return {
     payload: url,
-  }),
-  loadFilmById: (film) => ({
-    type: ActionType.LOAD_FILM_BY_ID,
+  };
+});
+
+export const loadFilmById = createAction(ActionType.LOAD_FILM_BY_ID, (film) => {
+  return {
     payload: film,
-  }),
-  loadComments: (comments)=>({
-    type: ActionType.LOAD_COMMENTS,
-    payload: comments
-  }),
-  postComment: (comment)=>({
-    type: ActionType.POST_COMMENT,
-    payload: comment
-  }),
-  setReviewFormDisabled: (disabled) => ({
-    type: ActionType.SET_REVIEW_FORM_DISABLED,
-    payload: disabled
-  }),
-  onReviewFormError: (error) => ({
-    type: ActionType.REVIEW_FORM_ERROR,
-    payload: error
-  }),
-  authorizationError: (error) => ({
-    type: ActionType.AUTHORIZATION_ERROR,
-    payload: error
-  })
-};
+  };
+});
+export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments) => {
+  return {
+    payload: comments,
+  };
+});
+export const postComment = createAction(ActionType.POST_COMMENT, (comment) => {
+  return {
+    payload: comment,
+  };
+});
+export const setReviewFormDisabled = createAction(ActionType.SET_REVIEW_FORM_DISABLED, (disabled) => {
+  return {
+    payload: disabled,
+  };
+});
+export const onReviewFormError = createAction(ActionType.REVIEW_FORM_ERROR, (error) => {
+  return {
+    payload: error,
+  };
+});
+export const authorizationError = createAction(ActionType.AUTHORIZATION_ERROR, (error) => {
+  return {
+    payload: error,
+  };
+});
+

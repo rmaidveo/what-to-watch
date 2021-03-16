@@ -33,7 +33,6 @@ const APIRoute = {
 };
 const GENERE_ALL = `All genres`;
 const AuthorizationStatus = {
-  INIT: `INIT`,
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };

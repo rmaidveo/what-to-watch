@@ -44,9 +44,7 @@ const appPropTypes = {
 };
 
 const mainPagePropTypes = {
-  films: filmListPropTypes,
-  promo: filmPropTypes,
-  reviews: reviewsListPropsTypes,
+  promo: filmPropTypes
 };
 
 const dataPropTypes = PropTypes.arrayOf(PropTypes.object).isRequired;
@@ -76,7 +74,6 @@ const filmPageOfFilmPropTypes = {
   films: filmListPropTypes,
   activeFilm: PropTypes.object.isRequired,
   commentsOnActiveFilm: reviewsListPropsTypes,
-  authorizationStatus: PropTypes.string.isRequired,
   activeFilmLoaded: PropTypes.bool.isRequired,
   onLoadFilmById: PropTypes.func.isRequired
 };
@@ -93,12 +90,12 @@ const formReviewPropTypes = {
 const myListPropTypes = {
   isFavoriteFilmsList: filmListPropTypes,
   isFavoriteDataLoaded: PropTypes.bool.isRequired,
-  onLoadFavoriteData: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired
+  onLoadFavoriteData: PropTypes.func.isRequired
 };
 
 export {
   appPropTypes,
+  filmListPropTypes,
   mainPagePropTypes,
   dataPropTypes,
   filmPropTypes,

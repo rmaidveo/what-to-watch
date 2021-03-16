@@ -1,8 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {avatarPropTypes} from '../../prop-types';
-import {ActionCreator} from "../../store/actions";
+import {redirectToRoute} from "../../store/actions";
 import {loginOut} from "../../store/api-actions";
+import {RouteType} from '../../consts';
+import {getUserInfo} from '../../store/user/selectors';
 
 const Avatar = ({userInfo, onLogout, onToMyListClick}) => {
 
@@ -26,12 +28,12 @@ const Avatar = ({userInfo, onLogout, onToMyListClick}) => {
 
 Avatar.propTypes = avatarPropTypes;
 const mapStateToProps = (state) => ({
-  userInfo: state.userInfo,
+  userInfo: getUserInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onToMyListClick() {
-    dispatch(ActionCreator.redirectToRoute(`/mylist`));
+    dispatch(redirectToRoute(RouteType.USER_LIST));
   },
   onLogout() {
     dispatch(loginOut());

@@ -14,6 +14,7 @@ import LoadingPage from "../loading-page/loading-page";
 import {connect} from 'react-redux';
 import {fetchData} from '../../store/api-actions';
 import {appPropTypes} from '../../prop-types';
+import {getLoadedDataStatus} from '../../store/films/selectors';
 
 const App = (props) => {
   const {isDataLoaded, onLoadData} = props;
@@ -67,7 +68,7 @@ const App = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded,
+  isDataLoaded: getLoadedDataStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

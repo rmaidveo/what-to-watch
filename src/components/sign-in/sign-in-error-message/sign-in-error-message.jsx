@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {getLoginError} from '../../../store/user/selectors';
 
 const SignInErrorMessage = (props) => {
   const {isLoginError, isValidEmail} = props;
@@ -15,9 +16,7 @@ const SignInErrorMessage = (props) => {
         </p>
       </div>
     );
-  } else {
-    return ``;
-  }
+  } return ``;
 };
 
 SignInErrorMessage.propTypes = {
@@ -26,7 +25,7 @@ SignInErrorMessage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isLoginError: state.isLoginError
+  isLoginError: getLoginError(state)
 });
 
 export {SignInErrorMessage};

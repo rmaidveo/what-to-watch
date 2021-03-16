@@ -1,22 +1,14 @@
-import React, {useState} from 'react';
-import Logo from '../logo/logo.jsx';
+import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {mainPagePropTypes} from '../../prop-types';
-import {LOGO_FOOTER} from '../logo/const';
-import GenresList from '../genres-list/genres-list';
-import FilmsList from '../films-list';
-import ShowMoreButton from '../show-more-button/show-more-button';
-import {getSortByGenre} from '../../selectors/selectors';
-import {FILMS_COUNT} from '../../consts';
-import Avatar from '../avatar/avatar';
-import Autorized from '../autorized/autorized';
-import {AuthorizationStatus} from '../../consts';
+import Header from '../header/header';
+import Footer from '../footer/footer.jsx';
+import Catalog from '../catalog/catalog';
+import {getPromo} from '../../store/films/selectors';
 
 const MainPage = (props) => {
-  const {films, promo, reviews, authorizationStatus} = props;
-  const [filmsCount, setFilmsCount] = useState(FILMS_COUNT);
-  const handleShowMoreButtonClick = () => setFilmsCount((currentCount) => currentCount + FILMS_COUNT);
+  const {promo} = props;
 
   return (
     <>
@@ -24,12 +16,7 @@ const MainPage = (props) => {
         <div className="movie-card__bg">
           <img src={promo.backgroundImage} alt={promo.name}/>
         </div>
-        <h1 className="visually-hidden">WTW</h1>
-        <header className="page-header movie-card__head">
-          <Logo />
-          {authorizationStatus === AuthorizationStatus.AUTH ? <Avatar /> : <Autorized />}
-        </header>
-
+        <Header/>
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
@@ -61,21 +48,9 @@ const MainPage = (props) => {
           </div>
         </div>
       </section>
-
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresList />
-          <FilmsList films={films.slice(0, filmsCount)} reviews={reviews}/>
-          {filmsCount < films.length && <ShowMoreButton onButtonClick={handleShowMoreButtonClick} />}
-        </section>
-
-        <footer className="page-footer">
-          <Logo className={LOGO_FOOTER} />
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Catalog />
+        <Footer/>
       </div>
     </>
   );
@@ -84,10 +59,7 @@ const MainPage = (props) => {
 MainPage.propTypes = mainPagePropTypes;
 
 const mapStateToProps = (state) => ({
-  films: getSortByGenre(state),
-  promo: state.promo,
-  reviews: state.reviews,
-  authorizationStatus: state.authorizationStatus
+  promo: getPromo(state)
 });
 
 export {MainPage};

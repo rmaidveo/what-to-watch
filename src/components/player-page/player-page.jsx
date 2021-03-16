@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {dataPropTypes} from '../../prop-types';
 import {useParams} from 'react-router-dom';
+import {getFilms} from '../../store/films/selectors';
 
 const PlayerPage = (props) => {
   const {films, onExitButtonClick} = props;
@@ -44,7 +45,7 @@ const PlayerPage = (props) => {
 PlayerPage.propTypes = dataPropTypes;
 
 const mapStateToProps = (state) => ({
-  films: state.films
+  films: getFilms(state)
 });
 
 export {PlayerPage};

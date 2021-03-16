@@ -3,6 +3,8 @@ import {RATING_STARS, TextArea} from '../../consts';
 import {formReviewPropTypes} from '../../prop-types';
 import {postCommentOnFilmByID} from '../../store/api-actions';
 import {connect} from 'react-redux';
+import {getActiveFilm, getActiveFilmLoaded} from '../../store/active-film/selectors';
+import {getReviewFormDisabled} from '../../store/reviews/selectors';
 
 const getLengthValidation = (evt) => {
   let textArea = evt.target;
@@ -61,9 +63,9 @@ const FormReview = (props) => {
 FormReview.propTypes = formReviewPropTypes;
 
 const mapStateToProps = (state) => ({
-  activeFilmLoaded: state.activeFilmLoaded,
-  activeFilm: state.activeFilm,
-  isReviewFormDisabled: state.isReviewFormDisabled
+  activeFilmLoaded: getActiveFilmLoaded(state),
+  activeFilm: getActiveFilm(state),
+  isReviewFormDisabled: getReviewFormDisabled(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

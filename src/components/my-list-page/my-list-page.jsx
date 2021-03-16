@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
-import FilmsList from '../films-list';
+import FilmsList from '../films-list/films-list';
 import Logo from '../logo/logo.jsx';
 import Avatar from '../avatar/avatar';
 import Autorized from '../autorized/autorized';
 import {myListPropTypes} from '../../prop-types';
-import {LOGO_FOOTER} from '../logo/const';
 import {connect} from 'react-redux';
 import LoadingPage from '../loading-page/loading-page';
 import {fetchFavoriteFilmsList} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../consts';
+import Footer from '../footer/footer';
+import {getFavoriteFilms, getLoadedFavoriteDataStatus} from '../../store/films/selectors';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 const MyListPage = (props) => {
   const {isFavoriteFilmsList, isFavoriteDataLoaded, onLoadFavoriteData, authorizationStatus} = props;
@@ -39,20 +41,15 @@ const MyListPage = (props) => {
             <FilmsList films={isFavoriteFilmsList}/>
           </div>
         </section>
-        <footer className="page-footer">
-          <Logo className={LOGO_FOOTER} />
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
   );
 };
 const mapStateToProps = (state) => ({
-  isFavoriteFilmsList: state.isFavoriteFilmsList,
-  isFavoriteDataLoaded: state.isFavoriteDataLoaded,
-  authorizationStatus: state.authorizationStatus
+  isFavoriteFilmsList: getFavoriteFilms(state),
+  isFavoriteDataLoaded: getLoadedFavoriteDataStatus(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
