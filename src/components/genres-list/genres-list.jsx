@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {genresListPropTypes} from '../../prop-types';
-import {getGenresType} from '../../selectors/selectors';
-import {ActionCreator} from '../../store/actions';
+import {getGenresType, getGenre} from '../../store/films/selectors';
+import {changeGenre} from '../../store/actions';
 
 const GenresList = (props) => {
   const {genreList, genre, onGenreClick} = props;
@@ -16,12 +16,14 @@ const GenresList = (props) => {
     <ul className="catalog__genres-list">
       {genreList.map((tab, id) => {
         return (
-          <li key={tab + id} className={tab === genre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}>
-            <a href="#" className="catalog__genres-link"
-              onClick={handleGenreClick}>
-              {tab}
-            </a>
-          </li>
+          <React.Fragment key={tab + id}>
+            <li className={tab === genre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}>
+              <a href="#" className="catalog__genres-link"
+                onClick={handleGenreClick}>
+                {tab}
+              </a>
+            </li>
+          </React.Fragment>
         );
       })}
     </ul>
@@ -31,13 +33,13 @@ const GenresList = (props) => {
 GenresList.propTypes = genresListPropTypes;
 
 const mapStateToProps = (state) => ({
-  genre: state.genre,
+  genre: getGenre(state),
   genreList: getGenresType(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreClick(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
+    dispatch(changeGenre(genre));
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActionCreator} from "../../store/actions";
+import {redirectToRoute} from "../../store/actions";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -23,7 +23,7 @@ Autorized.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onSignInClick() {
-    dispatch(ActionCreator.redirectToRoute(`/login`));
+    dispatch(redirectToRoute(`/login`));
   }
 });
 

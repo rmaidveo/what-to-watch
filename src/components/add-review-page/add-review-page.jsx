@@ -7,6 +7,8 @@ import {useParams} from 'react-router-dom';
 import NotFoundPage from '../not-found-page/not-found-page';
 import {fetchFilmById} from '../../store/api-actions';
 import {addReviewPagePropTypes} from '../../prop-types';
+import {getFilms} from '../../store/films/selectors';
+import {getActiveFilm, getActiveFilmLoaded} from '../../store/active-film/selectors';
 
 const AddReviewPage = (props) => {
   const {activeFilm, activeFilmLoaded, onLoadFilmById, onPostReview} = props;
@@ -63,9 +65,9 @@ const AddReviewPage = (props) => {
 AddReviewPage.propTypes = addReviewPagePropTypes;
 
 const mapStateToProps = (state) => ({
-  films: state.films,
-  activeFilmLoaded: state.activeFilmLoaded,
-  activeFilm: state.activeFilm
+  films: getFilms(state),
+  activeFilmLoaded: getActiveFilmLoaded(state),
+  activeFilm: getActiveFilm(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

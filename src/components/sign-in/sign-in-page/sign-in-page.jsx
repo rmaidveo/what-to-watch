@@ -1,12 +1,18 @@
 import React, {useRef, useState} from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import {Redirect} from 'react-router-dom';
 import {login, getUserInfo} from "../../../store/api-actions";
-import Logo from '../../logo/logo';
-import {LOGO_FOOTER} from '../../logo/const';
 import SignInErrorMessage from '../sign-in-error-message/sign-in-error-message';
+import Footer from '../../footer/footer';
+import Logo from '../../logo/logo';
+import {AuthorizationStatus, RouteType} from '../../../consts';
+import {getAuthorizationStatus} from '../../../store/user/selectors';
 
-const SignInPage = ({onSubmit, setUserInfo}) => {
+const SignInPage = ({onSubmit, setUserInfo, authorizationStatus}) => {
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={RouteType.INDEX}/>;
+  }
   const loginRef = useRef();
   const passwordRef = useRef();
   const [isValidEmail, setValidEmail] = useState(true);
@@ -31,7 +37,6 @@ const SignInPage = ({onSubmit, setUserInfo}) => {
     onSubmit({login: log, password});
     setUserInfo();
   };
-
 
   return (
     <>
@@ -73,13 +78,7 @@ const SignInPage = ({onSubmit, setUserInfo}) => {
             </div>
           </form>
         </div>
-
-        <footer className="page-footer">
-          <Logo className={LOGO_FOOTER} />
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
   );
@@ -87,9 +86,13 @@ const SignInPage = ({onSubmit, setUserInfo}) => {
 
 SignInPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  setUserInfo: PropTypes.func.isRequired
+  setUserInfo: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  authorizationStatus: getAuthorizationStatus(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
@@ -101,4 +104,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {SignInPage};
-export default connect(null, mapDispatchToProps)(SignInPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);

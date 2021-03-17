@@ -8,6 +8,7 @@ const GeneresCount = {
 };
 const RATING_STARS = 10;
 const FILMS_COUNT = 8;
+const FILMS_COUNT_FILM_PAGE = 4;
 const TabsTypes = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,
@@ -33,7 +34,6 @@ const APIRoute = {
 };
 const GENERE_ALL = `All genres`;
 const AuthorizationStatus = {
-  INIT: `INIT`,
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
 };
@@ -50,6 +50,7 @@ export {
   GENERE_ALL,
   GeneresCount,
   FILMS_COUNT,
+  FILMS_COUNT_FILM_PAGE,
   AuthorizationStatus,
   TextArea,
   APIRoute
