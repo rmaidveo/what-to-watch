@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {connect} from 'react-redux';
 import {genresListPropTypes} from '../../prop-types';
 import {getGenresType, getGenre} from '../../store/films/selectors';
@@ -44,4 +44,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {GenresList};
-export default connect(mapStateToProps, mapDispatchToProps)(GenresList);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(GenresList, (prevProps, nextProps) => prevProps.genreList === nextProps.genreList));

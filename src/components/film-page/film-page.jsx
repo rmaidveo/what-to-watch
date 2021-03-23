@@ -13,9 +13,10 @@ import {getFilmsOfSameGenre} from '../../store/films/selectors';
 import {getActiveFilm, getActiveFilmLoaded} from '../../store/active-film/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {getCommentsOnActiveFilm} from '../../store/reviews/selectors';
+import AddInList from '../add-in-list/add-in-list';
 
 const FilmPage = (props) => {
-  const {sortedFilms, authorizationStatus, onAddReviewСlick, onPlayerVideoСlick, activeFilm, commentsOnActiveFilm, activeFilmLoaded, onLoadFilmById} = props;
+  const {sortedFilms, authorizationStatus, onPlayerVideoСlick, activeFilm, commentsOnActiveFilm, activeFilmLoaded, onLoadFilmById} = props;
   const id = parseInt(useParams().id, 10);
 
   useEffect(() => {
@@ -54,13 +55,9 @@ const FilmPage = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                {authorizationStatus === AuthorizationStatus.AUTH ? <button onClick={() => onAddReviewСlick()} className="btn movie-card__button">Add review</button> : ``}
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <AddInList id={activeFilm.id} isFavorite={activeFilm.isFavorite} />
+                  : ``}
               </div>
             </div>
           </div>
@@ -94,7 +91,7 @@ const mapStateToProps = (state) => ({
   sortedFilms: getFilmsOfSameGenre(state),
   authorizationStatus: getAuthorizationStatus(state),
   activeFilm: getActiveFilm(state),
-  commentsOnActiveFilm: getCommentsOnActiveFilm(state)
+  commentsOnActiveFilm: getCommentsOnActiveFilm(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -103,5 +100,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchCommentsOnFilmByID(id));
   }
 });
+
 export {FilmPage};
 export default connect(mapStateToProps, mapDispatchToProps)(FilmPage);

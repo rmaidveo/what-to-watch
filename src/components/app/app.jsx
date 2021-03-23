@@ -34,7 +34,7 @@ const App = (props) => {
     <BrowserRouter history={browserHistory} >
       <Switch>
         <Route exact path={RouteType.INDEX}
-          render={() => <MainPage/>}
+          render={() => <MainPage />}
         />
         <Route exact path={RouteType.LOGIN}>
           <SignInPage/>
@@ -68,7 +68,7 @@ const App = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  isDataLoaded: getLoadedDataStatus(state),
+  isDataLoaded: getLoadedDataStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

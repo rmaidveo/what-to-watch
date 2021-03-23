@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {GENERE_ALL, FILMS_COUNT} from '../../consts';
 import {adapterFilms, adapterFilm} from '../../adapters/films';
-import {loadFilmsList, changeGenre, loadFavoriteFilmsList, showMoreFilms, loadPromoFilm} from '../actions';
+import {loadFilmsList, changeGenre, loadFavoriteFilmsList, showMoreFilms, loadPromoFilm, postFilmInUserList} from '../actions';
 
 const initialState = {
   genre: GENERE_ALL,
@@ -10,8 +10,12 @@ const initialState = {
   films: [],
   promo: {},
   isDataLoaded: false,
-  isFavoriteFilmsList: [],
+  favoriteFilmsList: [],
   isFavoriteDataLoaded: false,
+  favoriteFilm: {
+    id: 0,
+    isFavorite: false
+  }
 };
 
 const films = createReducer(initialState, (builder) => {
@@ -28,13 +32,19 @@ const films = createReducer(initialState, (builder) => {
   });
   builder.addCase(loadFavoriteFilmsList, (state, action) => {
     const adaptedFavoriteFilms = adapterFilms(action.payload);
-    state.isFavoriteFilmsList = adaptedFavoriteFilms;
+    state.favoriteFilmsList = adaptedFavoriteFilms;
     state.isFavoriteDataLoaded = true;
   });
   builder.addCase(loadPromoFilm, (state, action) => {
     const adaptedPromo = adapterFilm(action.payload);
     state.promo = adaptedPromo;
     state.isPromoLoaded = true;
+  });
+  builder.addCase(postFilmInUserList, (state, action) => {
+    state.favoriteFilm = {
+      "id": action.payload.id,
+      "is_favorite": action.payload.isFavorite
+    };
   });
 });
 

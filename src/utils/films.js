@@ -25,6 +25,14 @@ export const getRunTime = (time) => {
   return min !== 0 ? `${h}h ${min}m` : `${h}h`;
 };
 
+export const geTimeInPlayer = (seconds) => {
+  let time = Math.floor(seconds / 60);
+  let h = Math.floor(time / 60);
+  let min = time % 60;
+  let sec = Math.floor((seconds - (time * 60) - (h * 60) - min) % 60);
+  return `${h}:${min}:${sec}`;
+};
+
 export const getActiveFilmById = (films, filmId) => {
   films.find((item) => item.id === parseInt(filmId, 10));
 };

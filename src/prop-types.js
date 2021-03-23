@@ -44,7 +44,8 @@ const appPropTypes = {
 };
 
 const mainPagePropTypes = {
-  promo: filmPropTypes
+  promo: filmPropTypes,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const dataPropTypes = PropTypes.arrayOf(PropTypes.object).isRequired;
@@ -88,7 +89,7 @@ const formReviewPropTypes = {
   isReviewFormDisabled: PropTypes.bool.isRequired
 };
 const myListPropTypes = {
-  isFavoriteFilmsList: filmListPropTypes,
+  favoriteFilmsList: filmListPropTypes,
   isFavoriteDataLoaded: PropTypes.bool.isRequired,
   onLoadFavoriteData: PropTypes.func.isRequired
 };
