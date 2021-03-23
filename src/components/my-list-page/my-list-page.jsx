@@ -9,14 +9,13 @@ import LoadingPage from '../loading-page/loading-page';
 import {fetchFavoriteFilmsList} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../consts';
 import Footer from '../footer/footer';
-import {getFavoriteFilms, getLoadedFavoriteDataStatus} from '../../store/films/selectors';
+import {getFavoriteFilms, getFavoriteFilm, getLoadedFavoriteDataStatus} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 
 const MyListPage = (props) => {
-  const {isFavoriteFilmsList, isFavoriteDataLoaded, onLoadFavoriteData, authorizationStatus} = props;
-
+  const {favoriteFilmsList, favoriteFilm, isFavoriteDataLoaded, onLoadFavoriteData, authorizationStatus} = props;
   useEffect(() => {
-    if (!isFavoriteDataLoaded) {
+    if (!isFavoriteDataLoaded || favoriteFilmsList[favoriteFilmsList.length - 1].id !== favoriteFilm.id) {
       onLoadFavoriteData();
     }
   }, [isFavoriteDataLoaded]);
@@ -38,7 +37,7 @@ const MyListPage = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <div className="catalog__movies-list">
-            <FilmsList films={isFavoriteFilmsList}/>
+            <FilmsList films={favoriteFilmsList}/>
           </div>
         </section>
         <Footer/>
@@ -47,9 +46,10 @@ const MyListPage = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  isFavoriteFilmsList: getFavoriteFilms(state),
+  favoriteFilmsList: getFavoriteFilms(state),
   isFavoriteDataLoaded: getLoadedFavoriteDataStatus(state),
-  authorizationStatus: getAuthorizationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state),
+  favoriteFilm: getFavoriteFilm(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

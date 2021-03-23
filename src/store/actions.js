@@ -13,6 +13,7 @@ export const ActionType = {
   LOAD_FILM_BY_ID: `data/loadFilmById`,
   LOAD_COMMENTS: `data/loadComments`,
   POST_COMMENT: `data/postComment`,
+  POST_FILM_IN_USER_LIST: `data/postFilmInUserList`,
   SET_REVIEW_FORM_DISABLED: `review/setReviewFormDisabled`,
   REVIEW_FORM_ERROR: `review/onReviewFormError`
 };
@@ -85,6 +86,15 @@ export const onReviewFormError = createAction(ActionType.REVIEW_FORM_ERROR, (err
 export const authorizationError = createAction(ActionType.AUTHORIZATION_ERROR, (error) => {
   return {
     payload: error,
+  };
+});
+
+export const postFilmInUserList = createAction(ActionType.POST_FILM_IN_USER_LIST, (film) =>{
+  return {
+    payload: {
+      id: film.id,
+      isFavorite: film.is_favorite,
+    }
   };
 });
 

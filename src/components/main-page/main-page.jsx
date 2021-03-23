@@ -6,9 +6,12 @@ import Header from '../header/header';
 import Footer from '../footer/footer.jsx';
 import Catalog from '../catalog/catalog';
 import {getPromo} from '../../store/films/selectors';
+import {AuthorizationStatus} from '../../consts';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import AddInList from '../add-in-list/add-in-list';
 
 const MainPage = (props) => {
-  const {promo} = props;
+  const {promo, authorizationStatus} = props;
 
   return (
     <>
@@ -37,12 +40,9 @@ const MainPage = (props) => {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                {authorizationStatus === AuthorizationStatus.AUTH ?
+                  <AddInList id={promo.id} isFavorite={promo.isFavorite}/>
+                  : ``}
               </div>
             </div>
           </div>
@@ -59,7 +59,8 @@ const MainPage = (props) => {
 MainPage.propTypes = mainPagePropTypes;
 
 const mapStateToProps = (state) => ({
-  promo: getPromo(state)
+  promo: getPromo(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 export {MainPage};
