@@ -1,4 +1,4 @@
-import {loadFilmsList, loadPromoFilm, requireAuthorization, loadFavoriteFilmsList, getUserAuthInfo, redirectToRoute, authorizationError, setReviewFormDisabled, loadFilmById, onReviewFormError, loadComments, postFilmInUserList} from "./actions";
+import {loadFilmsList, loadPromoFilm, requireAuthorization, loadFavoriteFilmsList, getUserAuthInfo, redirectToRoute, authorizationError, loadFilmById, loadComments, postFilmInUserList, setIsApplycationReady} from "./actions";
 import {AuthorizationStatus, APIRoute} from "../consts";
 
 export const fetchData = () => (dispatch, _getState, api) => (
@@ -6,7 +6,8 @@ export const fetchData = () => (dispatch, _getState, api) => (
     api.get(APIRoute.PROMO_FILM)
     .then(({data}) => dispatch(loadPromoFilm(data))),
     api.get(APIRoute.FILMS)
-    .then(({data}) => dispatch(loadFilmsList(data))),
+    .then(({data}) => dispatch(loadFilmsList(data)))
+    .then(() => dispatch(setIsApplycationReady(true))),
   ])
 );
 
@@ -38,7 +39,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     })
     .catch(() => {
       dispatch(authorizationError(true));
-      dispatch(setReviewFormDisabled(false));
       dispatch(redirectToRoute(APIRoute.LOGIN));
     })
 );
@@ -75,14 +75,7 @@ export const addFilmInUserList = (id, status) => (dispatch, _getState, api) => (
 );
 
 export const postCommentOnFilmByID = (id, rating, comment) => (dispatch, _getState, api) => {
-  dispatch(setReviewFormDisabled(true));
   api.post(`${APIRoute.COMMENTS}/${id}`, {rating, comment})
-  .then(() => {
-    dispatch(redirectToRoute(`${APIRoute.FILMS}/${id + 1}`));
-    dispatch(setReviewFormDisabled(false));
-  })
-  .catch((err) => {
-    dispatch(onReviewFormError(err));
-    dispatch(setReviewFormDisabled(false));
-  });
+  .then(() => dispatch(redirectToRoute(`${APIRoute.FILMS}/${id}`)))
+  .catch();
 };

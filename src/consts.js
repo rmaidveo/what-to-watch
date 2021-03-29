@@ -32,6 +32,7 @@ const APIRoute = {
   FILMS: `/films`,
   COMMENTS: `/comments`
 };
+const BACKEND_URL = `https://6.react.pages.academy/wtw`;
 const GENERE_ALL = `All genres`;
 const AuthorizationStatus = {
   AUTH: `AUTH`,
@@ -44,6 +45,7 @@ const TextArea = {
 
 export {
   RATING_STARS,
+  BACKEND_URL,
   StarList,
   TabsTypes,
   RouteType,

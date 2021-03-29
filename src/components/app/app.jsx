@@ -14,18 +14,18 @@ import LoadingPage from "../loading-page/loading-page";
 import {connect} from 'react-redux';
 import {fetchData} from '../../store/api-actions';
 import {appPropTypes} from '../../prop-types';
-import {getLoadedDataStatus} from '../../store/films/selectors';
+import {getApplycationStatus} from '../../store/films/selectors';
 
 const App = (props) => {
-  const {isDataLoaded, onLoadData} = props;
+  const {isApplicationReady, onLoadData} = props;
 
   useEffect(() => {
-    if (!isDataLoaded) {
+    if (!isApplicationReady) {
       onLoadData();
     }
-  }, [isDataLoaded]);
+  }, [isApplicationReady]);
 
-  if (!isDataLoaded) {
+  if (!isApplicationReady) {
     return (
       <LoadingPage/>
     );
@@ -43,8 +43,8 @@ const App = (props) => {
           render={() => <MyListPage /> }
         />
         <Route exact path={RouteType.PLAYER} render={
-          ({history}) => {
-            return <PlayerPage onExitButtonClick={() => history.goBack()}
+          ({history, match}) => {
+            return <PlayerPage id={match.params.id} onExitButtonClick={() => history.goBack()}
             />;
           }} />
         <PrivateRoute exact
@@ -56,7 +56,7 @@ const App = (props) => {
         </PrivateRoute>
         <Route exact path={RouteType.FILM_PAGE} render={
           ({history, match}) => {
-            return <FilmPage key={match.params.id} onAddReviewСlick={() => history.push(`/films/${match.params.id}/review`)}
+            return <FilmPage key={match.params.id} id={match.params.id} onAddReviewСlick={() => history.push(`/films/${match.params.id}/review`)}
               onPlayerVideoСlick={() => history.push(`../player/${match.params.id}`)}/>;
           }
         } />
@@ -68,7 +68,7 @@ const App = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  isDataLoaded: getLoadedDataStatus(state)
+  isApplicationReady: getApplycationStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

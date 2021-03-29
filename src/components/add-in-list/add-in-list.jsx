@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {addFilmInUserList} from '../../store/api-actions';
+import {getFavoriteStatusById} from '../../store/films/selectors';
 
 
-const AddInList = ({id, isFavorite, onAddUserListСlick}) => {
+const AddInList = ({id, onAddUserListСlick}) => {
+  const isFavorite = useSelector(getFavoriteStatusById(id));
   const [inList, setInlist] = useState(isFavorite);
 
   return (
@@ -22,7 +24,6 @@ const AddInList = ({id, isFavorite, onAddUserListСlick}) => {
 
 AddInList.propTypes = {
   id: PropTypes.number.isRequired,
-  isFavorite: PropTypes.bool.isRequired,
   onAddUserListСlick: PropTypes.func.isRequired
 };
 

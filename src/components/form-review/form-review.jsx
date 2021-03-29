@@ -3,8 +3,6 @@ import {RATING_STARS, TextArea} from '../../consts';
 import {formReviewPropTypes} from '../../prop-types';
 import {postCommentOnFilmByID} from '../../store/api-actions';
 import {connect} from 'react-redux';
-import {getActiveFilm, getActiveFilmLoaded} from '../../store/active-film/selectors';
-import {getReviewFormDisabled} from '../../store/reviews/selectors';
 
 const getLengthValidation = (evt) => {
   let textArea = evt.target;
@@ -19,13 +17,15 @@ const getLengthValidation = (evt) => {
 };
 
 const FormReview = (props) => {
-  const {activeFilm, isReviewFormDisabled, onPostReview} = props;
+  const {id, color, onPostReview} = props;
+  const [isReviewFormDisabled, setIsReviewFormDisabled] = useState(false);
   const [userFormText, setUserFormText] = useState(``);
   const [userFormRating, setUserFormRating] = useState(5);
 
   const handleReviewSubmit = (evt) => {
     evt.preventDefault();
-    onPostReview(activeFilm.id, userFormRating, userFormText);
+    setIsReviewFormDisabled(true);
+    onPostReview(id, userFormRating, userFormText);
   };
 
   const handleReviewTextChange = (evt) => {
@@ -50,7 +50,7 @@ const FormReview = (props) => {
           ))}
         </div>
       </div>
-      <div className="add-review__text">
+      <div style={{backgroundColor: color, filter: `brightness(110%)`}} className="add-review__text">
         <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={userFormText} onChange={handleReviewTextChange} disabled={isReviewFormDisabled} required>{userFormText}</textarea>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit" disabled={isReviewFormDisabled}>Post</button>
@@ -61,17 +61,10 @@ const FormReview = (props) => {
 };
 
 FormReview.propTypes = formReviewPropTypes;
-
-const mapStateToProps = (state) => ({
-  activeFilmLoaded: getActiveFilmLoaded(state),
-  activeFilm: getActiveFilm(state),
-  isReviewFormDisabled: getReviewFormDisabled(state)
-});
-
 const mapDispatchToProps = (dispatch) => ({
   onPostReview(id, rating, comment) {
     dispatch(postCommentOnFilmByID(id, rating, comment));
   }
 });
 export {FormReview};
-export default connect(mapStateToProps, mapDispatchToProps)(FormReview);
+export default connect(null, mapDispatchToProps)(FormReview);

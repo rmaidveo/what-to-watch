@@ -1,31 +1,29 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import {filmPageOfFilmPropTypes} from '../../prop-types';
 import FilmsList from '../films-list/films-list';
 import Tabs from '../tabs/tabs';
 import Header from '../header/header';
 import {AuthorizationStatus} from '../../consts';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {fetchCommentsOnFilmByID, fetchFilmById} from '../../store/api-actions';
-import {useParams} from 'react-router-dom';
+import {fetchFilmById} from '../../store/api-actions';
 import Footer from '../footer/footer';
-import {getFilmsOfSameGenre} from '../../store/films/selectors';
-import {getActiveFilm, getActiveFilmLoaded} from '../../store/active-film/selectors';
+import {getApplycationStatus, getFilms, getFilmsInFilmPage} from '../../store/films/selectors';
+import {getActiveFilm} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
-import {getCommentsOnActiveFilm} from '../../store/reviews/selectors';
 import AddInList from '../add-in-list/add-in-list';
 
 const FilmPage = (props) => {
-  const {sortedFilms, authorizationStatus, onPlayerVideoСlick, activeFilm, commentsOnActiveFilm, activeFilmLoaded, onLoadFilmById} = props;
-  const id = parseInt(useParams().id, 10);
+  const {authorizationStatus, onPlayerVideoСlick, activeFilm, isApplicationReady, onLoadFilmById, onAddReviewСlick} = props;
+  const sortedFilms = useSelector(getFilmsInFilmPage(activeFilm));
 
   useEffect(() => {
-    if (!activeFilmLoaded || activeFilm.id !== id) {
-      onLoadFilmById(id);
+    if (!isApplicationReady) {
+      onLoadFilmById(activeFilm.id);
     }
   }, [activeFilm]);
 
-  if (!activeFilmLoaded) {
+  if (!isApplicationReady) {
     return (
       <NotFoundPage />
     );
@@ -56,8 +54,9 @@ const FilmPage = (props) => {
                   <span>Play</span>
                 </button>
                 {authorizationStatus === AuthorizationStatus.AUTH ?
-                  <AddInList id={activeFilm.id} isFavorite={activeFilm.isFavorite} />
+                  <AddInList id={activeFilm.id} />
                   : ``}
+                {authorizationStatus === AuthorizationStatus.AUTH ? <button onClick={() => onAddReviewСlick()} className="btn movie-card__button">Add review</button> : ``}
               </div>
             </div>
           </div>
@@ -68,7 +67,7 @@ const FilmPage = (props) => {
             <div className="movie-card__poster movie-card__poster--big">
               <img src={activeFilm.imageSrc} alt={activeFilm.name} width="218" height="327" />
             </div>
-            <Tabs film={activeFilm} reviews={commentsOnActiveFilm}> </Tabs>
+            <Tabs film={activeFilm}> </Tabs>
           </div>
         </div>
       </section>
@@ -86,19 +85,17 @@ const FilmPage = (props) => {
 
 FilmPage.propTypes = filmPageOfFilmPropTypes;
 
-const mapStateToProps = (state) => ({
-  activeFilmLoaded: getActiveFilmLoaded(state),
-  sortedFilms: getFilmsOfSameGenre(state),
+const mapStateToProps = (state, ownProps) => ({
+  films: getFilms(state),
+  isApplicationReady: getApplycationStatus(state),
   authorizationStatus: getAuthorizationStatus(state),
-  activeFilm: getActiveFilm(state),
-  commentsOnActiveFilm: getCommentsOnActiveFilm(state),
+  activeFilm: getActiveFilm(state, parseInt(ownProps.id, 10))
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilmById(id) {
     dispatch(fetchFilmById(id));
-    dispatch(fetchCommentsOnFilmByID(id));
-  }
+  },
 });
 
 export {FilmPage};

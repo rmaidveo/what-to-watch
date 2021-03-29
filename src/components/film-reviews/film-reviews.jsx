@@ -1,11 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {dataPropTypes} from '../../prop-types';
 import dayjs from 'dayjs';
+import {connect} from 'react-redux';
+import {fetchCommentsOnFilmByID} from '../../store/api-actions';
+import {getReviewsList} from '../../store/films/selectors';
 
 const FilmReviews = (props) => {
-  const {reviews} = props;
-  const reviewsFirst = reviews.slice(0, reviews.length / 2);
-  const reviewsSecond = reviews.slice(reviews.length / 2);
+  const {film, reviews, getReviews} = props;
+  const [reviewsLoading, setReviewsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!reviewsLoading) {
+      setReviewsLoading(true);
+      getReviews(film.id);
+    }
+  }, [film.id]);
+
+  if (!reviewsLoading) {
+    return <p className="movie-card__starring"> Loading comments...</p>;
+  }
+  if (reviewsLoading && reviews.length === 0) {
+    return <p className="movie-card__starring"> No comments for this film </p>;
+  }
+
+  const reviewsFirst = reviews.slice(0, Math.ceil(reviews.length / 2));
+  const reviewsSecond = reviews.slice(Math.ceil(reviews.length / 2));
 
   const getReviewColumn = (reviewList) => {
     return (
@@ -36,8 +55,18 @@ const FilmReviews = (props) => {
     </>
   );
 };
+const mapStateToProps = (state) => ({
+  reviews: getReviewsList(state),
+});
 
-FilmReviews.propTypes = {
-  reviews: dataPropTypes
-};
-export default FilmReviews;
+const mapDispatchToProps = (dispatch) => ({
+  getReviews(id) {
+    dispatch(fetchCommentsOnFilmByID(id));
+  },
+});
+
+FilmReviews.propTypes = dataPropTypes;
+
+export {FilmReviews};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilmReviews);
