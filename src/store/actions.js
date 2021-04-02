@@ -15,8 +15,7 @@ export const ActionType = {
   LOAD_FILM_BY_ID: `data/loadFilmById`,
   LOAD_COMMENTS: `data/loadComments`,
   POST_COMMENT: `data/postComment`,
-  POST_FILM_IN_USER_LIST: `data/postFilmInUserList`,
-  REVIEW_FORM_ERROR: `review/onReviewFormError`
+  POST_FILM_IN_USER_LIST: `data/postFilmInUserList`
 };
 export const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => {
   return {
@@ -77,12 +76,6 @@ export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments) =>
 export const postComment = createAction(ActionType.POST_COMMENT, (comment) => {
   return {
     payload: comment,
-  };
-});
-
-export const onReviewFormError = createAction(ActionType.REVIEW_FORM_ERROR, (error) => {
-  return {
-    payload: error,
   };
 });
 export const authorizationError = createAction(ActionType.AUTHORIZATION_ERROR, (error) => {

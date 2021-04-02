@@ -46,7 +46,7 @@ const SignInPage = ({onSubmit, setUserInfo, authorizationStatus}) => {
           <h1 className="page-title user-page__title">Sign in</h1>
         </header>
         <div className="sign-in user-page__content">
-          <form action="" className="sign-in__form" onSubmit={handleSubmit}>
+          <form action="" className="sign-in__form" onSubmit={handleSubmit} data-testid="sign-in_form" >
             <SignInErrorMessage isValidEmail={isValidEmail}/>
             <div className="sign-in__fields">
               <div className={isValidEmail ? `sign-in__field` : `sign-in__field--error sign-in__field--error`}>
@@ -56,6 +56,7 @@ const SignInPage = ({onSubmit, setUserInfo, authorizationStatus}) => {
                   name="user-email"
                   id="user-email"
                   placeholder="Email address"
+                  data-testid="login"
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
@@ -67,12 +68,13 @@ const SignInPage = ({onSubmit, setUserInfo, authorizationStatus}) => {
                   type="text"
                   name="user-password"
                   id="user-password"
+                  data-testid="password"
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>
             </div>
             <div className="sign-in__submit">
-              <button onClick={onSubmitButtonHandler}
+              <button data-testid="sign-in_btn" onClick={onSubmitButtonHandler}
                 className="sign-in__btn"
                 type="submit">Sign in</button>
             </div>

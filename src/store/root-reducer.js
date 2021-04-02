@@ -9,5 +9,5 @@ export const NameSpace = {
 
 export default combineReducers({
   [NameSpace.FILMS]: films,
-  [NameSpace.USER]: user
+  [NameSpace.USER]: user,
 });

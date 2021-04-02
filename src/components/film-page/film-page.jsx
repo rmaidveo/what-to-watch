@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect, useSelector} from 'react-redux';
 import {filmPageOfFilmPropTypes} from '../../prop-types';
 import FilmsList from '../films-list/films-list';
@@ -15,19 +15,18 @@ import AddInList from '../add-in-list/add-in-list';
 
 const FilmPage = (props) => {
   const {authorizationStatus, onPlayerVideoСlick, activeFilm, isApplicationReady, onLoadFilmById, onAddReviewСlick} = props;
+  if (activeFilm === null) {
+    return (<NotFoundPage />);
+  }
+  const [isFilmPageLoading, setIsFilmPageLoaded] = useState(false);
   const sortedFilms = useSelector(getFilmsInFilmPage(activeFilm));
 
   useEffect(() => {
-    if (!isApplicationReady) {
+    if (!isApplicationReady && !isFilmPageLoading) {
       onLoadFilmById(activeFilm.id);
+      setIsFilmPageLoaded(true);
     }
   }, [activeFilm]);
-
-  if (!isApplicationReady) {
-    return (
-      <NotFoundPage />
-    );
-  }
 
   return (
     <>

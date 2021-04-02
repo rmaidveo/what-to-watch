@@ -5,6 +5,7 @@ import LoadingPage from '../loading-page/loading-page';
 import {fetchFilmById} from '../../store/api-actions';
 import {geTimeInPlayer} from '../../utils/films';
 import {getActiveFilm} from '../../store/films/selectors';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 const PlayerPage = (props) => {
   const {activeFilm, onExitButtonClick, onLoadFilmById} = props;
@@ -14,6 +15,9 @@ const PlayerPage = (props) => {
   const [progressBar, setProgressBar] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(`00:00:00`);
   const fullVideoRef = useRef(``);
+  if (activeFilm === null) {
+    return (<NotFoundPage/>);
+  }
 
   useEffect(() => {
     if (!playerState) {

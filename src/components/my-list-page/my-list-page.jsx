@@ -14,7 +14,7 @@ import {getAuthorizationStatus} from '../../store/user/selectors';
 
 const MyListPage = (props) => {
   const {favoriteFilmsList, onLoadFavoriteData, authorizationStatus} = props;
-   const [isFavoriteDataLoaded, setIsFavoriteDataLoaded] = useState(false);
+  const [isFavoriteDataLoaded, setIsFavoriteDataLoaded] = useState(false);
 
   useEffect(() => {
     onLoadFavoriteData();

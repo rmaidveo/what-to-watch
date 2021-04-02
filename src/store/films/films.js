@@ -43,4 +43,4 @@ const films = createReducer(initialState, (builder) => {
   });
 });
 
-export {films};
+export {films, initialState};
