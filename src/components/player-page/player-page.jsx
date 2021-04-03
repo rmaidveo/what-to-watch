@@ -1,31 +1,34 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'react-redux';
 import {dataPropTypes} from '../../prop-types';
-import {useParams} from 'react-router-dom';
-import {getActiveFilm, getActiveFilmLoaded} from '../../store/active-film/selectors';
-import NotFoundPage from '../not-found-page/not-found-page';
+import LoadingPage from '../loading-page/loading-page';
 import {fetchFilmById} from '../../store/api-actions';
 import {geTimeInPlayer} from '../../utils/films';
+import {getActiveFilm} from '../../store/films/selectors';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 const PlayerPage = (props) => {
-  const {activeFilm, activeFilmLoaded, onExitButtonClick, onLoadFilmById} = props;
-  const id = parseInt(useParams().id, 10);
+  const {activeFilm, onExitButtonClick, onLoadFilmById} = props;
+  const [playerState, setPlayerState] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [progressBar, setProgressBar] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(`00:00:00`);
-
   const fullVideoRef = useRef(``);
+  if (activeFilm === null) {
+    return (<NotFoundPage/>);
+  }
 
   useEffect(() => {
-    if (!activeFilmLoaded || activeFilm.id !== id) {
-      onLoadFilmById(id);
+    if (!playerState) {
+      onLoadFilmById(activeFilm.id);
+      setPlayerState(true);
     }
   }, [activeFilm]);
 
-  if (!activeFilmLoaded) {
+  if (!playerState) {
     return (
-      <NotFoundPage />
+      <LoadingPage/>
     );
   }
   const playPlayer = () => {
@@ -109,9 +112,8 @@ const PlayerPage = (props) => {
 };
 PlayerPage.propTypes = dataPropTypes;
 
-const mapStateToProps = (state) => ({
-  activeFilmLoaded: getActiveFilmLoaded(state),
-  activeFilm: getActiveFilm(state)
+const mapStateToProps = (state, ownProps) => ({
+  activeFilm: getActiveFilm(state, parseInt(ownProps.id, 10)),
 });
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilmById(id) {

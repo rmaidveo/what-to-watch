@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import FilmsList from '../films-list/films-list';
 import Logo from '../logo/logo.jsx';
 import Avatar from '../avatar/avatar';
@@ -9,16 +9,17 @@ import LoadingPage from '../loading-page/loading-page';
 import {fetchFavoriteFilmsList} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../consts';
 import Footer from '../footer/footer';
-import {getFavoriteFilms, getFavoriteFilm, getLoadedFavoriteDataStatus} from '../../store/films/selectors';
+import {getFavoriteFilms, getLoadedFavoriteDataStatus} from '../../store/films/selectors';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 
 const MyListPage = (props) => {
-  const {favoriteFilmsList, favoriteFilm, isFavoriteDataLoaded, onLoadFavoriteData, authorizationStatus} = props;
+  const {favoriteFilmsList, onLoadFavoriteData, authorizationStatus} = props;
+  const [isFavoriteDataLoaded, setIsFavoriteDataLoaded] = useState(false);
+
   useEffect(() => {
-    if (!isFavoriteDataLoaded || favoriteFilmsList[favoriteFilmsList.length - 1].id !== favoriteFilm.id) {
-      onLoadFavoriteData();
-    }
-  }, [isFavoriteDataLoaded]);
+    onLoadFavoriteData();
+    setIsFavoriteDataLoaded(true);
+  }, [favoriteFilmsList.length]);
 
   if (!isFavoriteDataLoaded) {
     return (
@@ -49,7 +50,6 @@ const mapStateToProps = (state) => ({
   favoriteFilmsList: getFavoriteFilms(state),
   isFavoriteDataLoaded: getLoadedFavoriteDataStatus(state),
   authorizationStatus: getAuthorizationStatus(state),
-  favoriteFilm: getFavoriteFilm(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

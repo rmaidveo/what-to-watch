@@ -3,30 +3,20 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Logo from '../logo/logo';
 import FormReview from '../form-review/form-review';
-import {useParams} from 'react-router-dom';
-import NotFoundPage from '../not-found-page/not-found-page';
 import {fetchFilmById} from '../../store/api-actions';
 import {addReviewPagePropTypes} from '../../prop-types';
-import {getFilms} from '../../store/films/selectors';
-import {getActiveFilm, getActiveFilmLoaded} from '../../store/active-film/selectors';
+import {getActiveFilm} from '../../store/films/selectors';
 
 const AddReviewPage = (props) => {
-  const {activeFilm, activeFilmLoaded, onLoadFilmById, onPostReview} = props;
-  const id = parseInt(useParams().id, 10);
+  const {activeFilm, onLoadFilmById, onPostReview} = props;
 
   useEffect(() => {
-    onLoadFilmById(id);
-  }, []);
-
-  if (!activeFilmLoaded) {
-    return (
-      <NotFoundPage />
-    );
-  }
+    onLoadFilmById(activeFilm.id);
+  }, [activeFilm.id]);
 
   return (
     <>
-      <section className="movie-card movie-card--full">
+      <section style={{backgroundColor: activeFilm.backgroundColor}} className="movie-card movie-card--full">
         <div className="movie-card__header">
           <div className="movie-card__bg">
             <img src={activeFilm.backgroundImage} alt={activeFilm.name} />
@@ -55,7 +45,7 @@ const AddReviewPage = (props) => {
           </div>
         </div>
         <div className="add-review">
-          <FormReview onPostReview={onPostReview}> </FormReview>
+          <FormReview onPostReview={onPostReview} id={activeFilm.id} color={activeFilm.backgroundColor}> </FormReview>
         </div>
       </section>
     </>
@@ -64,10 +54,8 @@ const AddReviewPage = (props) => {
 
 AddReviewPage.propTypes = addReviewPagePropTypes;
 
-const mapStateToProps = (state) => ({
-  films: getFilms(state),
-  activeFilmLoaded: getActiveFilmLoaded(state),
-  activeFilm: getActiveFilm(state)
+const mapStateToProps = (state, ownProps) => ({
+  activeFilm: getActiveFilm(state, parseInt(ownProps.match.params.id, 10)),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -41,7 +41,7 @@ const MainPage = (props) => {
                   <span>Play</span>
                 </Link>
                 {authorizationStatus === AuthorizationStatus.AUTH ?
-                  <AddInList id={promo.id} isFavorite={promo.isFavorite}/>
+                  <AddInList id={promo.id}/>
                   : ``}
               </div>
             </div>

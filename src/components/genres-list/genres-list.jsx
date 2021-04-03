@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import {connect} from 'react-redux';
 import {genresListPropTypes} from '../../prop-types';
 import {getGenresType, getGenre} from '../../store/films/selectors';
-import {changeGenre} from '../../store/actions';
+import {changeGenre, resetVisibleFilms} from '../../store/actions';
 
 const GenresList = (props) => {
   const {genreList, genre, onGenreClick} = props;
@@ -39,6 +39,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreClick(genre) {
+    dispatch(resetVisibleFilms());
     dispatch(changeGenre(genre));
   },
 });

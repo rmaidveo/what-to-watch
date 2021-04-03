@@ -3,17 +3,17 @@ import FilmDetails from '../film-details/film-details';
 import FilmReviews from '../film-reviews/film-reviews';
 import FilmOverview from '../film-overview/film-overview';
 import PropTypes from 'prop-types';
-import {filmPropTypes, reviewPropTypes} from '../../prop-types';
+import {filmPropTypes} from '../../prop-types';
 import {TabsTypes} from '../../consts';
 
-const Tabs = ({film, reviews}) => {
+const Tabs = ({film}) => {
   const [activeTab, setActiveTab] = useState(TabsTypes.OVERVIEW);
 
   const getActiveTab = (tab) => {
     switch (tab) {
       case TabsTypes.OVERVIEW: return <FilmOverview film={film} />;
       case TabsTypes.DETAILS: return <FilmDetails film={film} />;
-      case TabsTypes.REVIEWS: return <FilmReviews reviews={reviews} />;
+      case TabsTypes.REVIEWS: return <FilmReviews film={film} />;
       default: return <FilmOverview film={film}> </FilmOverview>;
     }
 
@@ -42,10 +42,7 @@ const Tabs = ({film, reviews}) => {
   </>;
 };
 Tabs.propTypes = {
-  film: PropTypes.shape(filmPropTypes).isRequired,
-  reviews: PropTypes.arrayOf(
-      PropTypes.shape(reviewPropTypes).isRequired,
-  )
+  film: PropTypes.shape(filmPropTypes).isRequired
 };
 
 export default Tabs;

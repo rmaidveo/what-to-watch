@@ -39,7 +39,7 @@ const reviewsListPropsTypes = PropTypes.arrayOf(
 );
 
 const appPropTypes = {
-  isDataLoaded: PropTypes.bool.isRequired,
+
   onLoadData: PropTypes.func.isRequired,
 };
 
@@ -73,24 +73,20 @@ const avatarPropTypes = {
 
 const filmPageOfFilmPropTypes = {
   films: filmListPropTypes,
-  activeFilm: PropTypes.object.isRequired,
   commentsOnActiveFilm: reviewsListPropsTypes,
-  activeFilmLoaded: PropTypes.bool.isRequired,
   onLoadFilmById: PropTypes.func.isRequired
 };
 
 const addReviewPagePropTypes = {
-  onPostReview: PropTypes.func.isRequired,
-  activeFilmLoaded: PropTypes.bool.isRequired,
-  onLoadFilmById: PropTypes.func.isRequired,
+  activeFilm: filmPropTypes,
 };
 const formReviewPropTypes = {
+  id: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired,
   onPostReview: PropTypes.func.isRequired,
-  isReviewFormDisabled: PropTypes.bool.isRequired
 };
 const myListPropTypes = {
   favoriteFilmsList: filmListPropTypes,
-  isFavoriteDataLoaded: PropTypes.bool.isRequired,
   onLoadFavoriteData: PropTypes.func.isRequired
 };
 
