@@ -38,6 +38,16 @@ export const getActiveFilm = (state, filmId) => {
   return null;
 };
 
+export const getActiveFilm1 = (filmId) => createSelector(
+    getFilms,
+    (films) => {
+      if (filmId <= films.length) {
+        return films.find((film) => film.id === filmId);
+      }
+      return null;
+    }
+);
+
 export const getFilmsInFilmPage = (activeFilm) => createSelector(
     getFilms,
     (films) => films.filter((sortFilm) => (sortFilm.genre === activeFilm.genre && sortFilm.id !== activeFilm.id)).slice(0, FILMS_COUNT_FILM_PAGE)

@@ -78,7 +78,8 @@ const filmPageOfFilmPropTypes = {
 };
 
 const addReviewPagePropTypes = {
-  activeFilm: filmPropTypes,
+  onLoadFilmById: PropTypes.func.isRequired,
+  onPostReview: PropTypes.func.isRequired,
 };
 const formReviewPropTypes = {
   id: PropTypes.number.isRequired,

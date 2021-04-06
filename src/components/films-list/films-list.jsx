@@ -10,9 +10,9 @@ const FilmsList = (props) => {
   };
 
   return (
-    <div className="catalog__movies-list">
+    <div className="catalog__movies-list" data-testid="film-card-list">
       {films.map((film) =>
-        <FilmCard key={film.id} film={film} activeFilm={activeFilm} onMouseEnter={()=>onMouseEnter(film.id)} />
+        <FilmCard key={`film-card-${film.id}`} film={film} activeFilm={activeFilm} onMouseEnter={()=>onMouseEnter(film.id)} />
       )}
     </div>
   );

@@ -16,7 +16,7 @@ const Avatar = ({userInfo, onLogout, onToMyListClick}) => {
   return (
     <div className="user-block">
       <div className="user-block__avatar">
-        <img onClick={onToMyListClick} src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+        <img data-testid="my-list" onClick={onToMyListClick} src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
       </div>
       <div className="user-block">
         <span className="movie-card__year"> {userInfo && userInfo.email} </span>

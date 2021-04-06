@@ -37,10 +37,10 @@ const FilmCard = (props) => {
       <article className="small-movie-card catalog__movies-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Link to={`/films/${film.id}`}>
           <div className="small-movie-card__image">
-            {isPlaying ? <VideoPlayer isPlaying={isPlaying} src={film.previewVideoLink} preview={film.previewImageSrc} /> : <img src={film.previewImageSrc} alt={film.name} width="280" height="175" /> }
+            {isPlaying ? <VideoPlayer key={`player-card-${film.id}`} isPlaying={isPlaying} src={film.previewVideoLink} preview={film.previewImageSrc} /> : <img src={film.previewImageSrc} alt={film.name} width="280" height="175" /> }
           </div>
         </Link>
-        <h3 className="small-movie-card__title">
+        <h3 className="small-movie-card__title" data-testid="film-card-name">
           <Link className="small-movie-card__link" to={`/films/${film.id}`}>{film.name}</Link>
         </h3>
       </article>

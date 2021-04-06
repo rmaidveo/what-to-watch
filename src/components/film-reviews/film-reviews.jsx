@@ -30,7 +30,7 @@ const FilmReviews = (props) => {
     return (
       <div className="movie-card__reviews-col">
         {reviewList.map((review, index) =>
-          <React.Fragment key={review.id + index}>
+          <React.Fragment key={`review-${review.id + index}`}>
             <div className="review">
               <blockquote className="review__quote">
                 <p className="review__text">{review.comment}</p>
@@ -48,7 +48,7 @@ const FilmReviews = (props) => {
   };
   return (
     <>
-      <div className="movie-card__reviews movie-card__row">
+      <div className="movie-card__reviews movie-card__row" data-testid="review-wrap" >
         {getReviewColumn(reviewsFirst)}
         {getReviewColumn(reviewsSecond)}
       </div>

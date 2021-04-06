@@ -54,7 +54,7 @@ const App = (props) => {
       </PrivateRoute>
       <Route exact path={RouteType.FILM_PAGE} render={
         ({history, match}) => {
-          return <FilmPage key={match.params.id} id={match.params.id} onAddReviewСlick={() => history.push(`/films/${match.params.id}/review`)}
+          return <FilmPage key={`film-page-${match.params.id}`} id={match.params.id} onAddReviewСlick={() => history.push(`/films/${match.params.id}/review`)}
             onPlayerVideoСlick={() => history.push(`../player/${match.params.id}`)}/>;
         }
       } />

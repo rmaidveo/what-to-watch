@@ -24,7 +24,7 @@ const Tabs = ({film}) => {
         <ul className="movie-nav__list">
           {Object.values(TabsTypes).map((tab, id) => {
             return (
-              <li key={tab + id} className={tab === activeTab ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`}>
+              <li key={`tab-item-${tab + id}`} className={tab === activeTab ? `movie-nav__item movie-nav__item--active` : `movie-nav__item`}>
                 <a href="#" className="movie-nav__link"
                   onClick={(evt) => {
                     evt.preventDefault();
