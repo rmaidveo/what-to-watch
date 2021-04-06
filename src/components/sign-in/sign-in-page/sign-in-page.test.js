@@ -11,6 +11,7 @@ import {AuthorizationStatus, RouteType} from '../../../consts';
 const mockStore = configureStore({});
 const store = {
   USER: {
+    userInfo: null,
     authorizationStatus: AuthorizationStatus.NO_AUTH,
     isLoginError: false
   }
@@ -37,10 +38,10 @@ describe(`SignIn`, () => {
     expect(screen.getByLabelText(/Email address/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
 
-    userEvent.type(screen.getByTestId(`login`), `testUser`);
+    userEvent.type(screen.getByTestId(`login`), `testUser@mail.com`);
     userEvent.type(screen.getByTestId(`password`), `123456`);
 
-    expect(screen.getByDisplayValue(/testUser/i)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/testUser@mail.com/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/123456/i)).toBeInTheDocument();
   });
 
@@ -62,10 +63,11 @@ describe(`SignIn`, () => {
     expect(screen.getByLabelText(/Email address/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
 
-    userEvent.type(screen.getByTestId(`login`), `testUser`);
+    userEvent.type(screen.getByTestId(`login`), `testUser@mail.com`);
     userEvent.type(screen.getByTestId(`password`), `123456`);
 
-    expect(screen.getByDisplayValue(/testUser/i)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/testUser@mail.com/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/123456/i)).toBeInTheDocument();
   });
+
 });

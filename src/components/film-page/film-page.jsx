@@ -55,7 +55,7 @@ const FilmPage = (props) => {
                 {authorizationStatus === AuthorizationStatus.AUTH ?
                   <AddInList id={activeFilm.id} />
                   : ``}
-                {authorizationStatus === AuthorizationStatus.AUTH ? <button onClick={() => onAddReviewСlick()} className="btn movie-card__button">Add review</button> : ``}
+                {authorizationStatus === AuthorizationStatus.AUTH ? <button onClick={() => onAddReviewСlick()} className="btn movie-card__button" data-testid="add-review">Add review</button> : ``}
               </div>
             </div>
           </div>

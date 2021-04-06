@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {videoPlayerPropTypes} from '../../prop-types';
 
 const VideoPlayer = ({isPlaying, preview, src}) => {
@@ -16,11 +16,11 @@ const VideoPlayer = ({isPlaying, preview, src}) => {
   }, [isPlaying]);
 
   return (
-    <Fragment>
+    <>
       <div className="small-movie-card__image">
-        <video ref={videoRef} muted={true} src={src} poster={preview} width='280px' height='175px'/>
+        <video ref={videoRef} src={src} poster={preview} width='280px' height='175px' controls="controls"/>
       </div>
-    </Fragment>
+    </>
   );
 };
 

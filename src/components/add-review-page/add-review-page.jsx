@@ -13,7 +13,6 @@ const AddReviewPage = (props) => {
   useEffect(() => {
     onLoadFilmById(activeFilm.id);
   }, [activeFilm.id]);
-
   return (
     <>
       <section style={{backgroundColor: activeFilm.backgroundColor}} className="movie-card movie-card--full">

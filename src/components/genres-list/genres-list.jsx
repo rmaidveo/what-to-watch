@@ -16,7 +16,7 @@ const GenresList = (props) => {
     <ul className="catalog__genres-list">
       {genreList.map((tab, id) => {
         return (
-          <React.Fragment key={tab + id}>
+          <React.Fragment key={`genre-item-${tab + id}`}>
             <li className={tab === genre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}>
               <a href="#" className="catalog__genres-link"
                 onClick={handleGenreClick}>

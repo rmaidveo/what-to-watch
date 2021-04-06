@@ -18,7 +18,6 @@ const PlayerPage = (props) => {
   if (activeFilm === null) {
     return (<NotFoundPage/>);
   }
-
   useEffect(() => {
     if (!playerState) {
       onLoadFilmById(activeFilm.id);
