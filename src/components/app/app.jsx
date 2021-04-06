@@ -24,21 +24,16 @@ const App = (props) => {
     }
   }, [isApplicationReady]);
 
-  if (!isApplicationReady) {
-    return (
-      <LoadingPage/>
-    );
-  }
   return (
     <Switch>
       <Route exact path={RouteType.INDEX}
-        render={() => <MainPage />}
+        render={() => !isApplicationReady ? <LoadingPage/> : <MainPage />}
       />
       <Route exact path={RouteType.LOGIN}>
         <SignInPage/>
       </Route>
       <PrivateRoute exact path={RouteType.USER_LIST}
-        render={() => <MyListPage /> }
+        render={(routerProps) => <MyListPage {...routerProps}/> }
       />
       <Route exact path={RouteType.PLAYER} render={
         ({history, match}) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import FilmCard from '../film-card/film-card';
-import {dataPropTypes} from '../../prop-types';
+import {filmListPropTypes} from '../../prop-types';
 
 const FilmsList = (props) => {
   const [activeFilm, setActiveFilm] = React.useState(0);
@@ -18,5 +18,7 @@ const FilmsList = (props) => {
   );
 };
 
-FilmsList.propTypes = dataPropTypes;
+FilmsList.propTypes = {
+  films: filmListPropTypes
+};
 export default React.memo(FilmsList);

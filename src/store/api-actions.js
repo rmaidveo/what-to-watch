@@ -7,7 +7,8 @@ export const fetchData = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(loadPromoFilm(data))),
     api.get(APIRoute.FILMS)
     .then(({data}) => dispatch(loadFilmsList(data)))
-    .then(() => dispatch(setIsApplycationReady(true))),
+    .then(() => dispatch(setIsApplycationReady(true)))
+    .catch(() => {})
   ])
 );
 

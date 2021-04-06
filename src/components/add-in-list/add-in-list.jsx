@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {connect, useSelector} from 'react-redux';
 import {addFilmInUserList} from '../../store/api-actions';
 import {getFavoriteStatusById} from '../../store/films/selectors';
+import {addInListpropTypes} from '../../prop-types';
 
 
 const AddInList = ({id, onAddUserListСlick}) => {
@@ -22,10 +22,7 @@ const AddInList = ({id, onAddUserListСlick}) => {
   );
 };
 
-AddInList.propTypes = {
-  id: PropTypes.number.isRequired,
-  onAddUserListСlick: PropTypes.func.isRequired
-};
+AddInList.propTypes = addInListpropTypes;
 
 const mapDispatchToProps = (dispatch) => ({
   onAddUserListСlick(id, isFavorite) {

@@ -9,6 +9,7 @@ const GeneresCount = {
 const RATING_STARS = 10;
 const FILMS_COUNT = 8;
 const FILMS_COUNT_FILM_PAGE = 4;
+const TIME = 60;
 const TabsTypes = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,
@@ -42,7 +43,19 @@ const TextArea = {
   MIN: 40,
   MAX: 400
 };
-
+const RatingScale = {
+  MIN: 3,
+  NORMAL: 5,
+  GOOD: 8,
+  AWESOME: 10
+};
+const RatingTitle = {
+  BAD: `Bad`,
+  NORMAL: `Normal`,
+  GOOD: `Good`,
+  VERY_GOOD: `Very Good`,
+  AWESOME: `Awesome`
+};
 export {
   RATING_STARS,
   BACKEND_URL,
@@ -55,5 +68,8 @@ export {
   FILMS_COUNT_FILM_PAGE,
   AuthorizationStatus,
   TextArea,
-  APIRoute
+  APIRoute,
+  RatingScale,
+  TIME,
+  RatingTitle
 };

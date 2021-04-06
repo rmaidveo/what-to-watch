@@ -1,5 +1,5 @@
 import React from 'react';
-import {dataPropTypes} from '../../prop-types';
+import {filmPropTypes} from '../../prop-types';
 import {getRating} from '../../utils/films';
 import {StarList} from '../../consts.js';
 
@@ -23,5 +23,5 @@ const FilmOverview = ({film}) => {
   );
 };
 
-FilmOverview.propTypes = dataPropTypes;
+FilmOverview.propTypes = filmPropTypes;
 export default FilmOverview;

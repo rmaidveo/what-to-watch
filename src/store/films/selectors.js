@@ -19,26 +19,18 @@ export const getSortByGenre = createSelector(
       }
       return films.filter((film) => film.genre === genre);
     });
-
-export const getGenresType = (state) => {
-  const genresList = state[NameSpace.FILMS].films.map((film) => film.genre).sort();
-  return [GENERE_ALL, ...new Set(genresList)].slice(GeneresCount.MIN, GeneresCount.MAX);
-};
+export const getGenresType = () => createSelector(
+    getFilms,
+    (films) => {
+      const genresList = films.map((film) => film.genre).sort();
+      return [GENERE_ALL, ...new Set(genresList)].slice(GeneresCount.MIN, GeneresCount.MAX);
+    });
 export const getIsFavoritePromoInList = createSelector(
     [getFavoriteFilms, getPromo],
     (films, promo) => {
       return films.some((film) => film.id === promo.id);
     });
-
-export const getActiveFilm = (state, filmId) => {
-  const films = getFilms(state);
-  if (filmId <= films.length) {
-    return films.find((film) => film.id === filmId);
-  }
-  return null;
-};
-
-export const getActiveFilm1 = (filmId) => createSelector(
+export const getActiveFilm = (filmId) => createSelector(
     getFilms,
     (films) => {
       if (filmId <= films.length) {

@@ -34,6 +34,7 @@ it(`MainScreen renders correctly`, () => {
       <redux.Provider store={store}>
         <Router history={history}>
           <MainPage
+            isApplicationReady={true}
             authorizationStatus={AuthorizationStatus.AUTH}
             promo={film}
           />

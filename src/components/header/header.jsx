@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Logo from '../logo/logo.jsx';
-import PropTypes from 'prop-types';
 import Avatar from '../avatar/avatar';
 import Autorized from '../autorized/autorized';
 import {AuthorizationStatus} from '../../consts';
 import {getAuthorizationStatus} from '../../store/user/selectors.js';
+import {headerPropTypes} from '../../prop-types.js';
 
 const Header = ({authorizationStatus}) => {
   return (
@@ -19,9 +19,7 @@ const Header = ({authorizationStatus}) => {
   );
 };
 
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired
-};
+Header.propTypes = headerPropTypes;
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state)

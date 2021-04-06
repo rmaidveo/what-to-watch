@@ -1,7 +1,7 @@
 import React from 'react';
 import {redirectToRoute} from "../../store/actions";
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {autorizedPropTypes} from '../../prop-types';
 
 const Autorized = ({onSignInClick}) => {
 
@@ -17,10 +17,7 @@ const Autorized = ({onSignInClick}) => {
   );
 };
 
-Autorized.propTypes = {
-  onSignInClick: PropTypes.func.isRequired
-};
-
+Autorized.propTypes = autorizedPropTypes;
 const mapDispatchToProps = (dispatch) => ({
   onSignInClick() {
     dispatch(redirectToRoute(`/login`));

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {dataPropTypes} from '../../prop-types';
+import {filmReviewsPropTypes} from '../../prop-types';
 import dayjs from 'dayjs';
 import {connect} from 'react-redux';
 import {fetchCommentsOnFilmByID} from '../../store/api-actions';
@@ -65,7 +65,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-FilmReviews.propTypes = dataPropTypes;
+FilmReviews.propTypes = filmReviewsPropTypes;
 
 export {FilmReviews};
 

@@ -1,19 +1,21 @@
+import {RatingScale, RatingTitle, TIME} from '../consts';
+
 export const getRating = (rating) => {
   let result = ``;
-  if (rating <= 3) {
-    result = `Bad`;
+  if (rating <= RatingScale.MIN) {
+    result = RatingTitle.BAD;
   }
-  if (rating > 3 && rating <= 5) {
-    result = `Normal`;
+  if (rating > RatingScale.MIN && rating <= RatingScale.NORMAL) {
+    result = RatingTitle.NORMAL;
   }
-  if (rating > 5 && rating <= 8) {
-    result = `Good`;
+  if (rating > RatingScale.NORMAL && rating <= RatingScale.GOOD) {
+    result = RatingTitle.GOOD;
   }
-  if (rating > 8 && rating < 10) {
-    result = `Very Good`;
+  if (rating > RatingScale.GOOD && rating < RatingScale.AWESOME) {
+    result = RatingTitle.VERY_GOOD;
   }
-  if (rating === 10) {
-    result = `Awesome`;
+  if (rating === RatingScale.AWESOME) {
+    result = RatingTitle.AWESOME;
   }
   return result;
 };
@@ -26,13 +28,9 @@ export const getRunTime = (time) => {
 };
 
 export const geTimeInPlayer = (seconds) => {
-  let time = Math.floor(seconds / 60);
-  let h = Math.floor(time / 60);
-  let min = time % 60;
-  let sec = Math.floor((seconds - (time * 60) - (h * 60) - min) % 60);
+  let time = Math.floor(seconds / TIME);
+  let h = Math.floor(time / TIME);
+  let min = time % TIME;
+  let sec = Math.floor((seconds - (time * TIME) - (h * TIME) - min) % TIME);
   return `${h}:${min}:${sec}`;
-};
-
-export const getActiveFilmById = (films, filmId) => {
-  films.find((item) => item.id === parseInt(filmId, 10));
 };

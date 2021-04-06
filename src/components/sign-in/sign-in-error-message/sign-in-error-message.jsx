@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import {getLoginError} from '../../../store/user/selectors';
+import {signInErrorMessagePropTypes} from '../../../prop-types';
 
 const SignInErrorMessage = (props) => {
   const {isLoginError, isValidEmail} = props;
@@ -19,11 +19,7 @@ const SignInErrorMessage = (props) => {
   } return ``;
 };
 
-SignInErrorMessage.propTypes = {
-  isLoginError: PropTypes.bool.isRequired,
-  isValidEmail: PropTypes.bool.isRequired
-};
-
+SignInErrorMessage.propTypes = signInErrorMessagePropTypes;
 const mapStateToProps = (state) => ({
   isLoginError: getLoginError(state)
 });

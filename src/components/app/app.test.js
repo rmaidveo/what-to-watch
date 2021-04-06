@@ -34,7 +34,7 @@ describe(`Test routing`, () => {
     render(
         <Provider store={mockStore(storeNoAuth)}>
           <Router history={history}>
-            <App />
+            <App/>
           </Router>
         </Provider>
     );
@@ -66,7 +66,7 @@ describe(`Test routing`, () => {
     render(
         <Provider store={mockStore(storeAuth)}>
           <Router history={history}>
-            <App/>
+            <App />
           </Router>
         </Provider>
     );
