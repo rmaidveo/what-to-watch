@@ -14,7 +14,8 @@ import {getAuthorizationStatus} from '../../store/user/selectors';
 import AddInList from '../add-in-list/add-in-list';
 
 const FilmPage = (props) => {
-  const {authorizationStatus, onPlayerVideoСlick, activeFilm, isApplicationReady, onLoadFilmById, onAddReviewСlick} = props;
+  const {authorizationStatus, onPlayerVideoСlick, isApplicationReady, onLoadFilmById, onAddReviewСlick, id} = props;
+  const activeFilm = useSelector(getActiveFilm(Number(id)));
   if (activeFilm === null) {
     return (<NotFoundPage />);
   }
@@ -84,11 +85,10 @@ const FilmPage = (props) => {
 
 FilmPage.propTypes = filmPageOfFilmPropTypes;
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   films: getFilms(state),
   isApplicationReady: getApplycationStatus(state),
   authorizationStatus: getAuthorizationStatus(state),
-  activeFilm: getActiveFilm(state, parseInt(ownProps.id, 10))
 });
 
 const mapDispatchToProps = (dispatch) => ({

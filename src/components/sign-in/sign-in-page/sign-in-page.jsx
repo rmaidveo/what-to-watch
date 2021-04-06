@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Redirect} from 'react-router-dom';
 import {login, getUserInfo} from "../../../store/api-actions";
@@ -8,6 +7,7 @@ import Footer from '../../footer/footer';
 import Logo from '../../logo/logo';
 import {AuthorizationStatus, RouteType} from '../../../consts';
 import {getAuthorizationStatus} from '../../../store/user/selectors';
+import {signInPagePropTypes} from '../../../prop-types';
 
 const SignInPage = ({onSubmit, setUserInfo, authorizationStatus}) => {
   if (authorizationStatus === AuthorizationStatus.AUTH) {
@@ -86,11 +86,7 @@ const SignInPage = ({onSubmit, setUserInfo, authorizationStatus}) => {
   );
 };
 
-SignInPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  setUserInfo: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-};
+SignInPage.propTypes = signInPagePropTypes;
 
 const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),

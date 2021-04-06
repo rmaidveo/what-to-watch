@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import Logo from '../logo/logo';
 import FormReview from '../form-review/form-review';
 import {fetchFilmById} from '../../store/api-actions';
@@ -8,11 +8,13 @@ import {addReviewPagePropTypes} from '../../prop-types';
 import {getActiveFilm} from '../../store/films/selectors';
 
 const AddReviewPage = (props) => {
-  const {activeFilm, onLoadFilmById, onPostReview} = props;
+  const {onLoadFilmById, onPostReview} = props;
+  const {id} = props.match.params;
+  const activeFilm = useSelector(getActiveFilm(Number(id)));
 
   useEffect(() => {
-    onLoadFilmById(activeFilm.id);
-  }, [activeFilm.id]);
+    onLoadFilmById(id);
+  }, [id]);
   return (
     <>
       <section style={{backgroundColor: activeFilm.backgroundColor}} className="movie-card movie-card--full">
@@ -53,14 +55,10 @@ const AddReviewPage = (props) => {
 
 AddReviewPage.propTypes = addReviewPagePropTypes;
 
-const mapStateToProps = (state, ownProps) => ({
-  activeFilm: getActiveFilm(state, parseInt(ownProps.match.params.id, 10)),
-});
-
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilmById(id) {
     dispatch(fetchFilmById(id));
   }
 });
 export {AddReviewPage};
-export default connect(mapStateToProps, mapDispatchToProps)(AddReviewPage);
+export default connect(null, mapDispatchToProps)(AddReviewPage);

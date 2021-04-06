@@ -1,5 +1,5 @@
 import React from 'react';
-import {dataPropTypes} from '../../prop-types';
+import {filmPropTypes} from '../../prop-types';
 import {getRunTime} from '../../utils/films';
 
 const FilmDetails = ({film}) => {
@@ -43,5 +43,5 @@ const FilmDetails = ({film}) => {
   );
 };
 
-FilmDetails.propTypes = dataPropTypes;
+FilmDetails.propTypes = filmPropTypes;
 export default FilmDetails;

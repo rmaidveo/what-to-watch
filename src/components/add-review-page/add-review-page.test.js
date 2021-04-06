@@ -8,7 +8,7 @@ import {AuthorizationStatus} from '../../consts';
 import thunk from 'redux-thunk';
 import * as redux from "react-redux";
 import {createAPI} from '../../services/api';
-import {films, film} from '../../mocks-test';
+import {films} from '../../mocks-test';
 
 const api = createAPI(() => {});
 const middlleware = thunk.withExtraArgument(api);
@@ -23,11 +23,10 @@ it(`Should AddReviewPage render correctly`, () => {
   const defaultProps = {
     match: {params: {id: 1}},
   };
-
   render(
       <redux.Provider store={store}>
         <Router history={history}>
-          <AddReviewPage activeFilm={film} onPostReview={jest.fn()} {...defaultProps}/>
+          <AddReviewPage onPostReview={jest.fn()} onLoadFilmById={jest.fn()} {...defaultProps}/>
         </Router>
       </redux.Provider>
   );

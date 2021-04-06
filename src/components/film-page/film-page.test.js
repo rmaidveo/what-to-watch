@@ -43,6 +43,7 @@ describe(`Test FilmPage`, () => {
               authorizationStatus={AuthorizationStatus.AUTH}
               onPlayerVideoСlick={onPlayerVideoСlick}
               onAddReviewСlick={onAddReviewСlick}
+              id={film.id}
             />
           </Router>
         </redux.Provider>

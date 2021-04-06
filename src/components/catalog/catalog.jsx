@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import GenresList from '../genres-list/genres-list';
 import FilmsList from '../films-list/films-list';
 import ShowMoreButton from '../show-more-button/show-more-button';
-import {filmListPropTypes} from '../../prop-types';
+import {catalogPropTypes} from '../../prop-types';
 import {getSortByGenre, getVisibleFilms} from '../../store/films/selectors';
 import {showMoreFilms} from '../../store/actions';
 
@@ -23,11 +22,7 @@ const Catalog = (props) => {
   );
 };
 
-Catalog.propTypes = {
-  films: filmListPropTypes,
-  visibleFilms: PropTypes.number.isRequired,
-  onShowMoreButtonClick: PropTypes.func.isRequired,
-};
+Catalog.propTypes = catalogPropTypes;
 
 const mapStateToProps = (state) => ({
   films: getSortByGenre(state),

@@ -6,14 +6,15 @@ import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import reducer from './store/root-reducer';
 import {createAPI} from './services/api';
-import {requireAuthorization} from './store/actions';
+import {redirectToRoute, requireAuthorization} from './store/actions';
 import {checkAuth} from "./store/api-actions";
 import {AuthorizationStatus} from "./consts";
 import {redirect} from './store/middlewares/redirect';
 import browserHistory from "./browser-history";
 
 const api = createAPI(
-    () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH))
+    () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
+    () => store.dispatch(redirectToRoute(`/not-found-page`))
 );
 
 const store = configureStore({

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {connect} from 'react-redux';
-import {dataPropTypes} from '../../prop-types';
+import {connect, useSelector} from 'react-redux';
+import {playerPagePropTypes} from '../../prop-types';
 import LoadingPage from '../loading-page/loading-page';
 import {fetchFilmById} from '../../store/api-actions';
 import {geTimeInPlayer} from '../../utils/films';
@@ -8,7 +8,8 @@ import {getActiveFilm} from '../../store/films/selectors';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 const PlayerPage = (props) => {
-  const {activeFilm, onExitButtonClick, onLoadFilmById} = props;
+  const {onExitButtonClick, onLoadFilmById, id} = props;
+  const activeFilm = useSelector(getActiveFilm(Number(id)));
   const [playerState, setPlayerState] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
@@ -109,11 +110,7 @@ const PlayerPage = (props) => {
     </>
   );
 };
-PlayerPage.propTypes = dataPropTypes;
-
-const mapStateToProps = (state, ownProps) => ({
-  activeFilm: getActiveFilm(state, parseInt(ownProps.id, 10)),
-});
+PlayerPage.propTypes = playerPagePropTypes;
 const mapDispatchToProps = (dispatch) => ({
   onLoadFilmById(id) {
     dispatch(fetchFilmById(id));
@@ -121,4 +118,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 });
 export {PlayerPage};
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerPage);
+export default connect(null, mapDispatchToProps)(PlayerPage);
