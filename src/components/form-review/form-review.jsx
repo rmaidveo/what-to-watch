@@ -35,12 +35,12 @@ const FormReview = (props) => {
   };
 
   return (
-    <form action="#" className="add-review__form" onSubmit={handleReviewSubmit}>
+    <form action="#" className="add-review__form" data-tesid="add-review_form" onSubmit={handleReviewSubmit}>
       <div className="rating">
         <div className="rating__stars">
           {new Array(RATING_STARS).fill().map((_, rating) => (
             <React.Fragment key={`rating-${rating}`}>
-              <input className="rating__input" id={`star-${rating + 1}`} type="radio" name="rating" value={rating + 1} disabled={isReviewFormDisabled}
+              <input className="rating__input" id={`star-${rating + 1}`} type="radio" data-tesid={`rating-${rating + 1}`} name="rating" value={rating + 1} disabled={isReviewFormDisabled}
                 checked={userFormRating === rating + 1}
                 onChange={() => {
                   setUserFormRating(rating + 1);
@@ -51,7 +51,7 @@ const FormReview = (props) => {
         </div>
       </div>
       <div style={{backgroundColor: color, filter: `brightness(110%)`}} className="add-review__text">
-        <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" value={userFormText} onChange={handleReviewTextChange} disabled={isReviewFormDisabled} required>{userFormText}</textarea>
+        <textarea className="add-review__textarea" data-testid="textarea" name="review-text" id="review-text" placeholder="Review text" value={userFormText} onChange={handleReviewTextChange} disabled={isReviewFormDisabled} required>{userFormText}</textarea>
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit" disabled={isReviewFormDisabled}>Post</button>
         </div>

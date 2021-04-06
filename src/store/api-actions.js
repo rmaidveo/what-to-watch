@@ -29,8 +29,8 @@ export const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)))
 );
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(APIRoute.LOGIN, {email, password})
+export const login = ({login: email, password}) => (dispatch, _getState, api) => {
+  return api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       dispatch(getUserAuthInfo(data));
       dispatch(requireAuthorization(AuthorizationStatus.AUTH));
@@ -40,8 +40,8 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .catch(() => {
       dispatch(authorizationError(true));
       dispatch(redirectToRoute(APIRoute.LOGIN));
-    })
-);
+    });
+};
 
 export const loginOut = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOG_OUT)

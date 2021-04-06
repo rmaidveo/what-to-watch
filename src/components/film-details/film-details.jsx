@@ -2,8 +2,7 @@ import React from 'react';
 import {dataPropTypes} from '../../prop-types';
 import {getRunTime} from '../../utils/films';
 
-const FilmDetails = (props) => {
-  const {film} = props;
+const FilmDetails = ({film}) => {
   return (
     <>
       <div className="movie-card__text movie-card__row">
@@ -17,8 +16,8 @@ const FilmDetails = (props) => {
             <span className="movie-card__details-value">
               {film.starring.map((star, i) => {
                 return (
-                  <React.Fragment key={star + i}>
-                    {star} <br /> </React.Fragment>
+                  <React.Fragment key={`star-${star + i}`}>
+                    <span>{star}</span><br /> </React.Fragment>
                 );
               })}
             </span>
