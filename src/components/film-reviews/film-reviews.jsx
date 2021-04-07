@@ -55,6 +55,8 @@ const FilmReviews = (props) => {
     </>
   );
 };
+FilmReviews.propTypes = filmReviewsPropTypes;
+
 const mapStateToProps = (state) => ({
   reviews: getReviewsList(state),
 });
@@ -64,9 +66,5 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchCommentsOnFilmByID(id));
   },
 });
-
-FilmReviews.propTypes = filmReviewsPropTypes;
-
 export {FilmReviews};
-
 export default connect(mapStateToProps, mapDispatchToProps)(FilmReviews);

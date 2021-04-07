@@ -23,7 +23,6 @@ const App = (props) => {
       onLoadData();
     }
   }, [isApplicationReady]);
-
   return (
     <Switch>
       <Route exact path={RouteType.INDEX}
@@ -33,23 +32,24 @@ const App = (props) => {
         <SignInPage/>
       </Route>
       <PrivateRoute exact path={RouteType.USER_LIST}
-        render={(routerProps) => <MyListPage {...routerProps}/> }
+        render={(routerProps) => !isApplicationReady ? <LoadingPage/> : <MyListPage {...routerProps}/> }
       />
       <Route exact path={RouteType.PLAYER} render={
         ({history, match}) => {
-          return <PlayerPage id={match.params.id} onExitButtonClick={() => history.goBack()}
+          return !isApplicationReady ? <LoadingPage/> : <PlayerPage id={match.params.id} onExitButtonClick={() => history.goBack()}
           />;
         }} />
       <PrivateRoute exact
         path={RouteType.REVIEW}
         render={(routerProps) =>
-          <AddReviewPage
-            {...routerProps}
-            onPostReview={()=>{}}/>}>
+          !isApplicationReady ? <LoadingPage/> :
+            <AddReviewPage
+              {...routerProps}
+              onPostReview={()=>{}}/>}>
       </PrivateRoute>
       <Route exact path={RouteType.FILM_PAGE} render={
         ({history, match}) => {
-          return <FilmPage key={`film-page-${match.params.id}`} id={match.params.id} onAddReviewСlick={() => history.push(`/films/${match.params.id}/review`)}
+          return !isApplicationReady ? <LoadingPage/> : <FilmPage key={`film-page-${match.params.id}`} id={match.params.id} onAddReviewСlick={() => history.push(`/films/${match.params.id}/review`)}
             onPlayerVideoСlick={() => history.push(`../player/${match.params.id}`)}/>;
         }
       } />
