@@ -8,7 +8,8 @@ const ERROR_SERVER_CONNECTION = `Server connection error, try again later`;
 const HttpCode = {
   UNAUTHORIZED: 401,
   BAD_REQUEST: 400,
-  NOT_FOUND: 404
+  NOT_FOUND: 404,
+  UNKNOWN: 0
 };
 
 export const createAPI = (onUnauthorized, onRedirect) => {
@@ -23,10 +24,16 @@ export const createAPI = (onUnauthorized, onRedirect) => {
   const onFail = (err) => {
     const {response} = err;
 
+    if (err.request.status === HttpCode.UNKNOWN) {
+      toast(`Error: ${err.message}`);
+      throw err;
+    }
+
     if (response.status === HttpCode.UNAUTHORIZED) {
       onUnauthorized();
       throw err;
     }
+
     if (response.status === HttpCode.NOT_FOUND) {
       onRedirect();
       throw err;

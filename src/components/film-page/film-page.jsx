@@ -15,11 +15,11 @@ import AddInList from '../add-in-list/add-in-list';
 
 const FilmPage = (props) => {
   const {authorizationStatus, onPlayerVideoСlick, isApplicationReady, onLoadFilmById, onAddReviewСlick, id} = props;
+  const [isFilmPageLoading, setIsFilmPageLoaded] = useState(false);
   const activeFilm = useSelector(getActiveFilm(Number(id)));
   if (activeFilm === null) {
     return (<NotFoundPage />);
   }
-  const [isFilmPageLoading, setIsFilmPageLoaded] = useState(false);
   const sortedFilms = useSelector(getFilmsInFilmPage(activeFilm));
 
   useEffect(() => {
